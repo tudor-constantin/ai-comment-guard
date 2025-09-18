@@ -1,0 +1,524 @@
+# AI Comment Guard
+# Copyright (C) 2025 Tudor Constantin
+# This file is distributed under the same license as the AI Comment Guard package.
+msgid ""
+msgstr ""
+"Project-Id-Version: AI Comment Guard 1.0.0\n"
+"Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
+"POT-Creation-Date: 2025-01-14 19:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: WordPress Plugin Boilerplate\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: ai-comment-guard.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/AI/AIManager.php:228
+msgid "OpenAI (GPT-4, GPT-3.5)"
+msgstr ""
+
+#: includes/AI/AIManager.php:229
+msgid "Anthropic (Claude)"
+msgstr ""
+
+#: includes/AI/AIManager.php:230
+msgid "OpenRouter (Multiple models)"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:94
+msgid "AI Comment Guard Settings"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:95
+msgid "AI Comment Guard"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:114
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:115
+msgid "Prompt"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:119
+msgid "Logs"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:159
+msgid "AI-Powered Comment Management"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:160
+msgid "Configure your custom AI provider to automatically analyze comments and keep your site spam-free."
+msgstr ""
+
+#: includes/Admin/AdminManager.php:232
+msgid "Testing connection..."
+msgstr ""
+
+#: includes/Admin/AdminManager.php:233
+msgid "Connection successful!"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:234
+msgid "Connection failed:"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:235
+msgid "Test AI Connection"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:236
+msgid "Are you sure you want to delete all logs?"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:237
+msgid "You have unsaved changes. Are you sure you want to leave?"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:238
+msgid "Please select a provider and enter the API token"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:239
+msgid "Please test the connection before saving"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:240
+msgid "Thresholds must be between 0.0 and 1.0"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:241
+msgid "Note: After saving, a \"Logs\" tab will appear on this page."
+msgstr ""
+
+#: includes/Admin/AdminManager.php:242
+msgid "Unsaved changes: Remember to save your settings."
+msgstr ""
+
+#: includes/Admin/AdminManager.php:243
+msgid "🔒 Validated"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:244
+msgid "Token validated. Change provider to modify."
+msgstr ""
+
+#: includes/Admin/AdminManager.php:289
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:103
+msgid "Security check failed. Please try again."
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:108
+msgid "You are not allowed to perform this action."
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:113
+msgid "Logs deleted successfully."
+msgstr ""
+
+#. translators: %d is the number of days for statistics display
+#: includes/Admin/Pages/LogsPage.php:140
+msgid "Statistics (Last %d Days)"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:142
+msgid "Statistics (Last 30 Days)"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:149
+msgid "Total Processed"
+msgstr ""
+
+#. translators: %s is the average confidence percentage
+#: includes/Admin/Pages/LogsPage.php:159
+msgid "Avg: %s%%"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:166
+msgid "Avg Processing Time"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:183
+msgid "All Actions"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:185
+#: includes/Admin/Pages/LogsPage.php:381
+msgid "Approved"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:188
+#: includes/Admin/Pages/LogsPage.php:382
+msgid "Spam"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:191
+#: includes/Admin/Pages/LogsPage.php:383
+msgid "Rejected"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:194
+#: includes/Admin/Pages/LogsPage.php:384
+msgid "Held"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:199
+msgid "Filter"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:232
+msgid "Clear All Logs"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:233
+msgid "Are you sure you want to delete all logs?"
+msgstr ""
+
+#. translators: %d is the number of log items
+#: includes/Admin/Pages/LogsPage.php:257
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/Pages/LogsPage.php:269
+msgid "&laquo; Previous"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:270
+msgid "Next &raquo;"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:295
+msgid "Processing Date"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:296
+msgid "Comment ID"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:297
+msgid "Author Info"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:298
+msgid "AI Analysis"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:299
+msgid "Final Action"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:300
+msgid "Confidence Level"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:306
+msgid "No logs available."
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:328
+msgid "Date"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:332
+msgid "Comment"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:338
+msgid "Comment Content"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:342
+msgid "Author"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:343
+#: includes/Admin/Pages/LogsPage.php:367
+msgid "Unknown"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:349
+msgid "AI Analysis"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:356
+msgid "Invalid response"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:360
+msgid "Action"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:366
+msgid "IP Address"
+msgstr ""
+
+#. translators: %d is the number of logs deleted
+#: includes/Admin/Pages/LogsPage.php:408
+msgid "%d log deleted"
+msgid_plural "%d logs deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/Pages/SettingsPage.php:68
+msgid "Save Settings"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:83
+msgid "Customize how the AI analyzes comments by modifying the prompt below."
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:90
+msgid "Save Prompt Settings"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:95
+msgid "Prompt Guidelines"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:97
+msgid "Use clear, specific instructions for the AI"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:98
+msgid "Include criteria for spam, rejection, and approval"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:99
+msgid "Request JSON format response for reliable parsing"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:100
+msgid "Test your prompt with sample comments before deploying"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:116
+msgid "Setup Required"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:117
+msgid "Configure your AI provider to start protecting your comments."
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:132
+msgid "AI Provider Configured"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:133
+msgid "Your AI provider is configured and ready to analyze comments."
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:147
+msgid "Test Connection"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:148
+msgid "Test your AI provider connection before saving the configuration."
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:151
+msgid "Test AI Connection"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:168
+msgid "⚠ Warning:"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:169
+msgid "Test the connection before saving the configuration."
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:175
+msgid "⚠ Connection Required:"
+msgstr ""
+
+#: includes/Admin/Pages/SettingsPage.php:176
+msgid "You must test and verify the connection before saving."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:83
+msgid "AI Provider Configuration"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:91
+msgid "Processing Settings"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:99
+msgid "Logging Settings"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:107
+msgid "AI Prompt Customization"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:122
+msgid "AI Provider"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:130
+msgid "API Token"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:139
+msgid "Auto Process Comments"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:147
+msgid "Spam Threshold"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:155
+msgid "Approval Threshold"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:163
+msgid "Enable logging"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:171
+msgid "Log retention (days)"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:180
+msgid "System Message"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:194
+msgid "Select your AI provider and enter your API credentials."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:203
+msgid "Configure how comments are processed and thresholds for automatic actions."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:212
+msgid "Configure logging and data retention settings."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:221
+msgid "Customize the prompt sent to the AI for comment analysis."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:234
+msgid "Select provider..."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:241
+msgid "Select your AI provider"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:242
+msgid "Select your preferred AI provider"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:258
+msgid "Enter your API token for the selected provider."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:275
+msgid "Automatically process new comments with AI analysis"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:295
+msgid "Confidence threshold for marking as spam (0.0 - 1.0)"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:314
+msgid "Confidence threshold for automatic approval (0.0 - 1.0)"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:331
+msgid "Enable logging of AI analysis results"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:334
+msgid "When enabled, a \"Logs\" tab will appear on this page."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:349
+msgid "Number of days to keep logs (0 for indefinite)"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:353
+msgid "Number of days to keep logs. Set to 0 to keep logs indefinitely. Default: 30 days."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:371
+msgid "Default prompts will be used if left empty"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:365
+msgid "You are an expert comment moderator. Analyze comments and respond only with valid JSON."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:372
+msgid "System message that defines AI behavior. Leave empty to use default."
+msgstr ""
+
+#: includes/Utils/Config.php:169
+msgid "You are an expert comment moderator. Analyze the comment content and determine if it should be approved, marked as spam, or rejected."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:388
+msgid "Please evaluate the following comment based on these criteria:"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:389
+msgid "1. Spam: Obvious advertising, links to unrelated sites, nonsensical content"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:390
+msgid "2. Rejected: Offensive content, hate speech, threats, or inappropriate material"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:391
+msgid "3. Approved: Genuine comments that contribute to the discussion"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:393
+msgid "Respond ONLY with a JSON object in this exact format:"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:394
+msgid "{\"analysis\": \"approved|spam|rejected\", \"confidence\": 0.0-1.0, \"reason\": \"brief explanation\"}"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:397
+msgid "Comment Content:"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:405
+msgid "Validation error:"
+msgstr ""
+
+#: includes/Comments/CommentProcessor.php:232
+msgid "Please select a provider and provide the token"
+msgstr ""
+
+#: includes/Comments/CommentProcessor.php:244
+msgid "Connection successful with AI provider"
+msgstr ""
+
+#: includes/Comments/CommentProcessor.php:248
+msgid "Connection test failed"
+msgstr ""
+
+#. translators: %s is the error message from the connection attempt
+#: includes/Comments/CommentProcessor.php:253
+msgid "Connection error: %s"
+msgstr ""
