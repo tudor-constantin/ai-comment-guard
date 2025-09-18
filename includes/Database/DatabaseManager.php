@@ -77,7 +77,9 @@ class DatabaseManager {
      * @return void
      */
     public function drop_tables() {
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $drop_sql = "DROP TABLE IF EXISTS " . $this->log_table;
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $this->wpdb->query($drop_sql);
         delete_option('ai_comment_guard_db_version');
     }
@@ -161,17 +163,30 @@ class DatabaseManager {
         
         $where_clause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
         
+        // Sanitize orderby and order values
+        $allowed_orderby = ['id', 'created_at', 'action', 'confidence', 'processing_time'];
+        $allowed_order = ['ASC', 'DESC'];
+        
+        $orderby = in_array($args['orderby'], $allowed_orderby, true) ? $args['orderby'] : 'created_at';
+        $order = in_array(strtoupper($args['order']), $allowed_order, true) ? strtoupper($args['order']) : 'DESC';
+        
         // Get total count
         if (!empty($where_values)) {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $count_sql = "SELECT COUNT(*) FROM " . $this->log_table . " " . $where_clause;
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $prepared_count = $this->wpdb->prepare($count_sql, $where_values);
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $total = $this->wpdb->get_var($prepared_count);
         } else {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $count_sql = "SELECT COUNT(*) FROM " . $this->log_table . " " . $where_clause;
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $total = $this->wpdb->get_var($count_sql);
         }
         
         // Get logs
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $query = "SELECT l.*, 
                   COALESCE(c.comment_content, l.comment_content) as comment_content,
                   COALESCE(c.comment_author, l.comment_author) as comment_author,
@@ -179,11 +194,13 @@ class DatabaseManager {
                   FROM " . $this->log_table . " l 
                   LEFT JOIN " . $this->wpdb->comments . " c ON l.comment_id = c.comment_ID 
                   " . $where_clause . "
-                  ORDER BY " . $args['orderby'] . " " . $args['order'] . "
+                  ORDER BY " . $orderby . " " . $order . "
                   LIMIT %d OFFSET %d";
         
         $query_values = array_merge($where_values, [$args['per_page'], $offset]);
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $prepared_query = $this->wpdb->prepare($query, $query_values);
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $logs = $this->wpdb->get_results($prepared_query);
         
         return [
@@ -202,6 +219,7 @@ class DatabaseManager {
     public function get_statistics($days = 30) {
         $date_limit = gmdate('Y-m-d H:i:s', strtotime("-{$days} days"));
         
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $stats_sql = "
             SELECT 
                 action,
@@ -213,7 +231,9 @@ class DatabaseManager {
             GROUP BY action
         ";
         
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $prepared_stats = $this->wpdb->prepare($stats_sql, $date_limit);
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $stats = $this->wpdb->get_results($prepared_stats, ARRAY_A);
         
         $result = [
@@ -234,6 +254,7 @@ class DatabaseManager {
         
         // Calculate overall averages
         if ($result['total'] > 0) {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $overall_sql = "
                 SELECT 
                     AVG(confidence) as avg_confidence,
@@ -242,7 +263,9 @@ class DatabaseManager {
                 WHERE created_at >= %s
             ";
             
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $prepared_overall = $this->wpdb->prepare($overall_sql, $date_limit);
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $overall = $this->wpdb->get_row($prepared_overall);
             
             $result['avg_confidence'] = (float) $overall->avg_confidence;
@@ -278,13 +301,18 @@ class DatabaseManager {
     public function clear_logs($older_than_days = 0) {
         if ($older_than_days > 0) {
             $date_limit = gmdate('Y-m-d H:i:s', strtotime("-{$older_than_days} days"));
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $delete_sql = "DELETE FROM " . $this->log_table . " WHERE created_at < %s";
             
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $prepared_delete = $this->wpdb->prepare($delete_sql, $date_limit);
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             return $this->wpdb->query($prepared_delete);
         }
         
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $truncate_sql = "TRUNCATE TABLE " . $this->log_table;
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         return $this->wpdb->query($truncate_sql);
     }
     
