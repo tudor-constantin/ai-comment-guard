@@ -267,6 +267,8 @@ class SettingsManager {
     public function render_auto_process_field() {
         $value = $this->config->get('auto_process', true);
         ?>
+        <!-- Hidden field to ensure value is always sent -->
+        <input type="hidden" name="<?php echo esc_attr($this->option_name); ?>[auto_process]" value="0" />
         <label>
             <input type="checkbox" 
                    name="<?php echo esc_attr($this->option_name); ?>[auto_process]" 
@@ -323,6 +325,8 @@ class SettingsManager {
     public function render_log_enabled_field() {
         $value = $this->config->get('log_enabled', false);
         ?>
+        <!-- Hidden field to ensure value is always sent -->
+        <input type="hidden" name="<?php echo esc_attr($this->option_name); ?>[log_enabled]" value="0" />
         <label>
             <input type="checkbox" 
                    name="<?php echo esc_attr($this->option_name); ?>[log_enabled]" 
@@ -373,7 +377,6 @@ class SettingsManager {
         <?php
     }
     
-    
     /**
      * Sanitize settings
      *
@@ -384,73 +387,57 @@ class SettingsManager {
         $sanitized = [];
         $current = $this->config->get();
         
-        // Sanitize provider
-        if (isset($input['ai_provider'])) {
-            $sanitized['ai_provider'] = sanitize_text_field($input['ai_provider']);
+        // Detect if this is a prompt-only submission
+        $is_prompt_only = !empty($input['custom_system_message']) && 
+                         !isset($input['ai_provider']) && 
+                         !isset($input['ai_provider_token']) &&
+                         !array_key_exists('auto_process', $input) &&
+                         !array_key_exists('log_enabled', $input);
+        
+        if ($is_prompt_only) {
+            // This is from the prompt tab - only process prompt field
+            if (isset($input['custom_system_message'])) {
+                $sanitized['custom_system_message'] = sanitize_textarea_field($input['custom_system_message']);
+            }
+        } else {
+            // This is from the main settings tab - process all fields
+            
+            // Sanitize provider
+            if (isset($input['ai_provider'])) {
+                $sanitized['ai_provider'] = sanitize_text_field($input['ai_provider']);
+            }
+            
+            // Sanitize token
+            if (isset($input['ai_provider_token'])) {
+                $sanitized['ai_provider_token'] = sanitize_text_field($input['ai_provider_token']);
+            }
+            
+            // Sanitize other fields
+            if (array_key_exists('auto_process', $input)) {
+                $sanitized['auto_process'] = isset($input['auto_process']) ? 1 : 0;
+            }
+            
+            if (array_key_exists('log_enabled', $input)) {
+                $sanitized['log_enabled'] = isset($input['log_enabled']) ? 1 : 0;
+            }
+            
+            if (isset($input['spam_threshold'])) {
+                $sanitized['spam_threshold'] = max(0, min(1, floatval($input['spam_threshold'])));
+            }
+            
+            if (isset($input['approval_threshold'])) {
+                $sanitized['approval_threshold'] = max(0, min(1, floatval($input['approval_threshold'])));
+            }
+            
+            if (isset($input['log_retention_days'])) {
+                $sanitized['log_retention_days'] = max(0, min(365, intval($input['log_retention_days'])));
+            }
         }
-        
-        // Sanitize token
-        if (isset($input['ai_provider_token'])) {
-            $sanitized['ai_provider_token'] = sanitize_text_field($input['ai_provider_token']);
-        }
-        
-        // Check if connection test is required - REMOVED to allow saving
-        // The JavaScript handles the validation on the frontend
-        // This was preventing saving even after successful test
-        // if ($this->is_provider_changed($current, $sanitized)) {
-        //     if (!get_transient('ai_comment_guard_connection_tested')) {
-        //         add_settings_error(
-        //             $this->option_name,
-        //             'connection_not_tested',
-        //             __('Please test the connection before saving.', 'ai-comment-guard'),
-        //             'error'
-        //         );
-        //         return $current;
-        //     }
-        // }
-        
-        // Sanitize other fields
-        $sanitized['auto_process'] = isset($input['auto_process']) ? 1 : 0;
-        $sanitized['log_enabled'] = isset($input['log_enabled']) ? 1 : 0;
-        
-        if (isset($input['spam_threshold'])) {
-            $sanitized['spam_threshold'] = max(0, min(1, floatval($input['spam_threshold'])));
-        }
-        
-        if (isset($input['approval_threshold'])) {
-            $sanitized['approval_threshold'] = max(0, min(1, floatval($input['approval_threshold'])));
-        }
-        
-        if (isset($input['custom_system_message'])) {
-            $sanitized['custom_system_message'] = sanitize_textarea_field($input['custom_system_message']);
-        }
-        
-        if (isset($input['log_retention_days'])) {
-            $sanitized['log_retention_days'] = max(0, min(365, intval($input['log_retention_days'])));
-        }
-        
         
         // Clear connection test flag
         delete_transient('ai_comment_guard_connection_tested');
         
         return array_merge($current, $sanitized);
-    }
-    
-    /**
-     * Check if provider settings changed
-     *
-     * @param array $current Current settings
-     * @param array $new New settings
-     * @return bool
-     */
-    private function is_provider_changed($current, $new) {
-        $provider_changed = isset($new['ai_provider']) && 
-                           $new['ai_provider'] !== ($current['ai_provider'] ?? '');
-        
-        $token_changed = isset($new['ai_provider_token']) && 
-                        $new['ai_provider_token'] !== ($current['ai_provider_token'] ?? '');
-        
-        return $provider_changed || $token_changed;
     }
     
     /**

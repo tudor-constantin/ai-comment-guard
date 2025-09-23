@@ -293,11 +293,11 @@ class LogsPage {
             <thead>
                 <tr>
                     <th scope="col"><?php esc_html_e('Processing Date', 'ai-comment-guard'); ?></th>
-                    <th scope="col"><?php esc_html_e('Comment ID', 'ai-comment-guard'); ?></th>
+                    <th scope="col"><?php esc_html_e('Comment', 'ai-comment-guard'); ?></th>
                     <th scope="col"><?php esc_html_e('Author Info', 'ai-comment-guard'); ?></th>
                     <th scope="col"><?php esc_html_e('AI Analysis', 'ai-comment-guard'); ?></th>
                     <th scope="col"><?php esc_html_e('Final Action', 'ai-comment-guard'); ?></th>
-                    <th scope="col"><?php esc_html_e('Confidence Level', 'ai-comment-guard'); ?></th>
+                    <th scope="col"><?php esc_html_e('IP Address', 'ai-comment-guard'); ?></th>
                 </tr>
             </thead>
             <tbody>

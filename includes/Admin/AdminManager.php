@@ -251,6 +251,9 @@ class AdminManager {
      * @return void
      */
     private function register_ajax_handlers() {
+        // Test AI connection
+        add_action('wp_ajax_test_ai_connection', [$this, 'handle_test_connection']);
+        
         // Delete logs
         add_action('wp_ajax_ai_comment_guard_delete_logs', [$this->logs_page, 'handle_delete_logs']);
         
@@ -258,6 +261,45 @@ class AdminManager {
         add_action('wp_ajax_ai_comment_guard_get_stats', [$this, 'handle_get_stats']);
     }
     
+    /**
+     * Handle test connection AJAX request
+     *
+     * @return void
+     */
+    public function handle_test_connection() {
+        check_ajax_referer('ai_comment_guard_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_die('Unauthorized');
+        }
+        
+        $provider = isset($_POST['ai_provider']) ? sanitize_text_field(wp_unslash($_POST['ai_provider'])) : '';
+        $token = isset($_POST['ai_provider_token']) ? sanitize_text_field(wp_unslash($_POST['ai_provider_token'])) : '';
+        
+        if (empty($provider) || empty($token)) {
+            wp_send_json_error(__('Please select a provider and provide the token', 'ai-comment-guard'));
+        }
+        
+        try {
+            $ai_manager = new \AI_Comment_Guard\AI\AIManager($provider, $token);
+            
+            if ($ai_manager->test_connection()) {
+                wp_send_json_success([
+                    'message' => __('Connection successful with AI provider', 'ai-comment-guard'),
+                    'provider' => $provider
+                ]);
+            } else {
+                wp_send_json_error(__('Connection test failed', 'ai-comment-guard'));
+            }
+        } catch (\Exception $e) {
+            wp_send_json_error(sprintf(
+                /* translators: %s is the error message from the connection attempt */
+                __('Connection error: %s', 'ai-comment-guard'),
+                $e->getMessage()
+            ));
+        }
+    }
+
     /**
      * Handle get statistics AJAX request
      *

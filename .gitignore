@@ -1,0 +1,7 @@
+# Ignore local tooling and generated files
+# If you want to keep specific files inside tools, add a negation rule like: !/tools/keep-me.php
+/tools/
+
+# Common temporary files
+.DS_Store
+*.log

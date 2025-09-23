@@ -49,9 +49,6 @@ class CommentProcessor {
     public function init() {
         // Hook into comment processing
         add_filter('pre_comment_approved', [$this, 'process_comment'], 10, 2);
-        
-        // Add AJAX handler for testing
-        add_action('wp_ajax_test_ai_connection', [$this, 'handle_test_connection']);
     }
     
     /**
@@ -208,51 +205,5 @@ class CommentProcessor {
             'confidence' => $analysis['confidence'],
             'processing_time' => $analysis['processing_time'] ?? 0
         ]);
-    }
-    
-    /**
-     * Handle test connection AJAX request
-     *
-     * @return void
-     */
-    public function handle_test_connection() {
-        // Verify nonce
-        check_ajax_referer('ai_comment_guard_nonce', 'nonce');
-        
-        // Check permissions
-        if (!current_user_can('manage_options')) {
-            wp_die('Unauthorized');
-        }
-        
-        // Get provider and token from request
-        $provider = isset($_POST['ai_provider']) ? sanitize_text_field(wp_unslash($_POST['ai_provider'])) : '';
-        $token = isset($_POST['ai_provider_token']) ? sanitize_text_field(wp_unslash($_POST['ai_provider_token'])) : '';
-        
-        if (empty($provider) || empty($token)) {
-            wp_send_json_error(__('Please select a provider and provide the token', 'ai-comment-guard'));
-        }
-        
-        try {
-            // Create AI manager and test connection
-            $ai_manager = new AIManager($provider, $token);
-            
-            if ($ai_manager->test_connection()) {
-                // Set connection test flag
-                set_transient('ai_comment_guard_connection_tested', true, 300);
-                
-                wp_send_json_success([
-                    'message' => __('Connection successful with AI provider', 'ai-comment-guard'),
-                    'provider' => $provider
-                ]);
-            } else {
-                wp_send_json_error(__('Connection test failed', 'ai-comment-guard'));
-            }
-        } catch (\Exception $e) {
-            wp_send_json_error(sprintf(
-                /* translators: %s is the error message from the connection attempt */
-                __('Connection error: %s', 'ai-comment-guard'),
-                $e->getMessage()
-            ));
-        }
     }
 }
