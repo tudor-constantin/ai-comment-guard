@@ -396,7 +396,8 @@ class SettingsManager {
         
         if ($is_prompt_only) {
             // This is from the prompt tab - only process prompt field
-            if (isset($input['custom_system_message'])) {
+            // Use array_key_exists so an explicit empty string can be saved (clearing the prompt).
+            if (array_key_exists('custom_system_message', $input)) {
                 $sanitized['custom_system_message'] = sanitize_textarea_field($input['custom_system_message']);
             }
         } else {
