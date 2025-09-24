@@ -388,7 +388,7 @@ class SettingsManager {
         $current = $this->config->get();
         
         // Detect if this is a prompt-only submission
-        $is_prompt_only = !empty($input['custom_system_message']) && 
+        $is_prompt_only = array_key_exists('custom_system_message', $input) &&
                          !isset($input['ai_provider']) && 
                          !isset($input['ai_provider_token']) &&
                          !array_key_exists('auto_process', $input) &&
