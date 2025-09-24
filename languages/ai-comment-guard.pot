@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-09-23 23:26+0000
+# POT-Creation-Date: 2025-09-24 14:00+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.0.0\n"
+"Project-Id-Version: AI Comment Guard 1.1.0\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-09-23 23:26+0000\n"
+"POT-Creation-Date: 2025-09-24 14:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

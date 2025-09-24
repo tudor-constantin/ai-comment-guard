@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -140,6 +140,16 @@ Currently, you can configure one provider at a time, but you can switch between 
 7. **Statistics Overview** - Track moderation performance
 
 == Changelog ==
+
+= 1.1.0 =
+* Added AJAX connection testing for AI providers
+* Enhanced settings interface with real-time connection validation
+* Improved settings sanitization with filter_var for boolean fields
+* Fixed custom system message handling to allow empty strings
+* Enhanced security with improved parameter sanitization in database queries
+* Updated logs table headers for better clarity
+* Refactored cleanup methods for production compliance
+* Updated translation files with new strings
 
 = 1.0.0 =
 * Initial release of AI Comment Guard

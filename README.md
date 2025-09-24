@@ -172,21 +172,7 @@ add_filter('ai_comment_guard_prompt', 'customize_prompt', 10, 2);
 
 ## 📝 Changelog
 
-### Version 1.0.0 (Initial Release)
-- **Multi-provider AI Support**: OpenAI, Anthropic, and OpenRouter integration
-- **Automatic Comment Moderation**: Real-time analysis with configurable thresholds
-- **Smart Classification**: Auto-approve, reject, hold, or mark comments as spam
-- **Customizable AI Prompts**: Tailor AI behavior to your specific needs
-- **Comprehensive Logging**: Detailed statistics and decision tracking
-- **Professional Admin Interface**: Intuitive configuration and management
-- **Secure API Integration**: Encrypted token storage and HTTPS communications
-- **Complete i18n Support**: Fully translatable with .pot file included
-- **Modern PHP Architecture**: PSR-4 autoloading with clean class structure
-- **WordPress Standards Compliance**: Following all WP coding and security guidelines
-- **Performance Optimized**: Database indexing and efficient query handling
-- **Automatic Maintenance**: Built-in cleanup and log retention features
-
-[See full changelog](https://wordpress.org/plugins/ai-comment-guard/#changelog)
+For detailed version history and release notes, see the [changelog in readme.txt](readme.txt#changelog) or visit the [WordPress.org plugin page](https://wordpress.org/plugins/ai-comment-guard/#changelog).
 
 ## 🤝 Contributing
 

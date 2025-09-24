@@ -264,6 +264,7 @@ class AdminManager {
     /**
      * Handle test connection AJAX request
      *
+     * @since 1.1.0
      * @return void
      */
     public function handle_test_connection() {
