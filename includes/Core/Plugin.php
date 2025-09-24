@@ -151,10 +151,8 @@ class Plugin {
      * @return void
      */
     public function cleanup_old_logs() {
-        $deleted = $this->database->clean_old_logs();
-        
-        // Log cleanup activity removed for production compliance
-        // WordPress.org plugins should not use error_log() in production
+        // Delete logs older than retention period
+        $this->database->clean_old_logs();
     }
     
     /**
