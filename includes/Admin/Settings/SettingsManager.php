@@ -414,11 +414,11 @@ class SettingsManager {
             
             // Sanitize other fields
             if (array_key_exists('auto_process', $input)) {
-                $sanitized['auto_process'] = isset($input['auto_process']) ? 1 : 0;
+                $sanitized['auto_process'] = filter_var($input['auto_process'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
             }
-            
+
             if (array_key_exists('log_enabled', $input)) {
-                $sanitized['log_enabled'] = isset($input['log_enabled']) ? 1 : 0;
+                $sanitized['log_enabled'] = filter_var($input['log_enabled'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
             }
             
             if (isset($input['spam_threshold'])) {
