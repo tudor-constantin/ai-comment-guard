@@ -79,7 +79,7 @@ class SettingsManager {
     private function add_settings_sections() {
         // AI Provider Section
         add_settings_section(
-            'ai_provider_section',
+            'ai_comment_guard_provider_section',
             __('AI Provider Configuration', 'ai-comment-guard'),
             [$this, 'render_provider_section'],
             'ai-comment-guard'
@@ -87,7 +87,7 @@ class SettingsManager {
         
         // Processing Settings Section
         add_settings_section(
-            'processing_section',
+            'ai_comment_guard_processing_section',
             __('Processing Settings', 'ai-comment-guard'),
             [$this, 'render_processing_section'],
             'ai-comment-guard'
@@ -95,7 +95,7 @@ class SettingsManager {
         
         // Logging Section
         add_settings_section(
-            'logging_section',
+            'ai_comment_guard_logging_section',
             __('Logging Settings', 'ai-comment-guard'),
             [$this, 'render_logging_section'],
             'ai-comment-guard'
@@ -103,7 +103,7 @@ class SettingsManager {
         
         // Prompt Customization Section
         add_settings_section(
-            'prompt_section',
+            'ai_comment_guard_prompt_section',
             __('AI Prompt Customization', 'ai-comment-guard'),
             [$this, 'render_prompt_section'],
             'ai-comment-guard-prompt'
@@ -118,69 +118,69 @@ class SettingsManager {
     private function add_settings_fields() {
         // Provider fields
         add_settings_field(
-            'ai_provider',
+            'ai_comment_guard_provider',
             esc_html__('AI Provider', 'ai-comment-guard'),
             [$this, 'render_provider_field'],
             'ai-comment-guard',
-            'ai_provider_section'
+            'ai_comment_guard_provider_section'
         );
         
         add_settings_field(
-            'ai_provider_token',
+            'ai_comment_guard_provider_token',
             esc_html__('API Token', 'ai-comment-guard'),
             [$this, 'render_token_field'],
             'ai-comment-guard',
-            'ai_provider_section'
+            'ai_comment_guard_provider_section'
         );
         
         // Processing fields
         add_settings_field(
-            'auto_process',
+            'ai_comment_guard_auto_process',
             esc_html__('Auto Process Comments', 'ai-comment-guard'),
             [$this, 'render_auto_process_field'],
             'ai-comment-guard',
-            'processing_section'
+            'ai_comment_guard_processing_section'
         );
         
         add_settings_field(
-            'spam_threshold',
+            'ai_comment_guard_spam_threshold',
             esc_html__('Spam Threshold', 'ai-comment-guard'),
             [$this, 'render_spam_threshold_field'],
             'ai-comment-guard',
-            'processing_section'
+            'ai_comment_guard_processing_section'
         );
         
         add_settings_field(
-            'approval_threshold',
+            'ai_comment_guard_approval_threshold',
             esc_html__('Approval Threshold', 'ai-comment-guard'),
             [$this, 'render_approval_threshold_field'],
             'ai-comment-guard',
-            'processing_section'
+            'ai_comment_guard_processing_section'
         );
         
         add_settings_field(
-            'log_enabled',
+            'ai_comment_guard_log_enabled',
             esc_html__('Enable logging', 'ai-comment-guard'),
             [$this, 'render_log_enabled_field'],
             'ai-comment-guard',
-            'logging_section'
+            'ai_comment_guard_logging_section'
         );
         
         add_settings_field(
-            'log_retention_days',
+            'ai_comment_guard_log_retention_days',
             esc_html__('Log retention (days)', 'ai-comment-guard'),
             [$this, 'render_log_retention_field'],
             'ai-comment-guard',
-            'logging_section'
+            'ai_comment_guard_logging_section'
         );
         
         // Prompt fields
         add_settings_field(
-            'custom_system_message',
+            'ai_comment_guard_custom_system_message',
             esc_html__('System Message', 'ai-comment-guard'),
             [$this, 'render_system_message_field'],
             'ai-comment-guard-prompt',
-            'prompt_section'
+            'ai_comment_guard_prompt_section'
         );
         
     }

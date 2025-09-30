@@ -137,7 +137,7 @@
                 url: ai_comment_guard_ajax.ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'test_ai_connection',
+                    action: 'ai_comment_guard_test_connection',
                     nonce: ai_comment_guard_ajax.nonce,
                     ai_provider: provider,
                     ai_provider_token: token

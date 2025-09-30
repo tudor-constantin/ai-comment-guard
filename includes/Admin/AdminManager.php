@@ -252,7 +252,7 @@ class AdminManager {
      */
     private function register_ajax_handlers() {
         // Test AI connection
-        add_action('wp_ajax_test_ai_connection', [$this, 'handle_test_connection']);
+        add_action('wp_ajax_ai_comment_guard_test_connection', [$this, 'handle_test_connection']);
         
         // Delete logs
         add_action('wp_ajax_ai_comment_guard_delete_logs', [$this->logs_page, 'handle_delete_logs']);
