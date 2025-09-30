@@ -49,6 +49,32 @@ Protect your WordPress site from spam with AI-powered comment moderation. Suppor
 * GDPR compliant with optional logging that can be disabled
 * All communications with AI providers use secure HTTPS connections
 
+== External Services ==
+
+This plugin connects to an external service in order to analyze and moderate comments using artificial intelligence.  
+You can choose one of the following providers in the plugin settings:
+
+1. **OpenAI API** (https://openai.com/)  
+   - **Purpose:** Used to generate text analysis and classify comments.  
+   - **Data sent:** The comment content (text) and moderation instructions.  
+   - **When data is sent:** Each time a comment is submitted on your site and OpenAI is selected as the provider.  
+   - **Where data is sent:** To OpenAI servers (https://api.openai.com/v1/chat/completions).  
+   - **Policies:** [Terms of Use](https://openai.com/policies/terms-of-use), [Privacy Policy](https://openai.com/policies/privacy-policy).
+
+2. **Anthropic API** (https://www.anthropic.com/)  
+   - **Purpose:** Used to analyze and classify comments through the Claude model.  
+   - **Data sent:** The comment content and analysis context.  
+   - **When data is sent:** Each time a comment is submitted and Anthropic is selected as the provider.  
+   - **Where data is sent:** To Anthropic servers (https://api.anthropic.com/v1/messages).  
+   - **Policies:** [Terms of Service](https://www.anthropic.com/legal/consumer-terms), [Privacy Policy](https://www.anthropic.com/legal/privacy).
+
+3. **OpenRouter API** (https://openrouter.ai/)  
+   - **Purpose:** Routes requests to multiple AI models for comment analysis.  
+   - **Data sent:** The comment content and parameters required for processing.  
+   - **When data is sent:** Each time a comment is submitted and OpenRouter is selected as the provider.  
+   - **Where data is sent:** To OpenRouter servers (https://openrouter.ai/api/v1/chat/completions).  
+   - **Policies:** [Terms](https://openrouter.ai/terms), [Privacy Policy](https://openrouter.ai/privacy).
+
 = Requirements =
 
 * WordPress 5.0 or higher
