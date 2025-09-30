@@ -199,20 +199,6 @@ class LogsPage {
                 <?php esc_html_e('Filter', 'ai-comment-guard'); ?>
             </button>
         </div>
-        
-        <script>
-        jQuery('#filter-logs').on('click', function() {
-            var filter = jQuery('#action-filter').val();
-            var url = new URL(window.location);
-            if (filter) {
-                url.searchParams.set('action_filter', filter);
-            } else {
-                url.searchParams.delete('action_filter');
-            }
-            url.searchParams.delete('paged');
-            window.location = url.toString();
-        });
-        </script>
         <?php
     }
     
