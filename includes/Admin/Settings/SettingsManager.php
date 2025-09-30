@@ -2,15 +2,15 @@
 /**
  * AI Comment Guard - Settings Manager
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Admin\Settings
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Admin\Settings;
+namespace AICOG\Admin\Settings;
 
-use AI_Comment_Guard\Utils\Config;
-use AI_Comment_Guard\AI\AIManager;
+use AICOG\Utils\Config;
+use AICOG\AI\AIManager;
 
 /**
  * Settings Manager
@@ -27,12 +27,12 @@ class SettingsManager {
     /**
      * @var string Settings group name
      */
-    private $settings_group = 'ai_comment_guard_settings_group';
+    private $settings_group = 'aicog_settings_group';
     
     /**
      * @var string Settings option name
      */
-    private $option_name = 'ai_comment_guard_settings';
+    private $option_name = 'aicog_settings';
     
     /**
      * Constructor
@@ -79,7 +79,7 @@ class SettingsManager {
     private function add_settings_sections() {
         // AI Provider Section
         add_settings_section(
-            'ai_comment_guard_provider_section',
+            'aicog_provider_section',
             __('AI Provider Configuration', 'ai-comment-guard'),
             [$this, 'render_provider_section'],
             'ai-comment-guard'
@@ -87,7 +87,7 @@ class SettingsManager {
         
         // Processing Settings Section
         add_settings_section(
-            'ai_comment_guard_processing_section',
+            'aicog_processing_section',
             __('Processing Settings', 'ai-comment-guard'),
             [$this, 'render_processing_section'],
             'ai-comment-guard'
@@ -95,7 +95,7 @@ class SettingsManager {
         
         // Logging Section
         add_settings_section(
-            'ai_comment_guard_logging_section',
+            'aicog_logging_section',
             __('Logging Settings', 'ai-comment-guard'),
             [$this, 'render_logging_section'],
             'ai-comment-guard'
@@ -103,7 +103,7 @@ class SettingsManager {
         
         // Prompt Customization Section
         add_settings_section(
-            'ai_comment_guard_prompt_section',
+            'aicog_prompt_section',
             __('AI Prompt Customization', 'ai-comment-guard'),
             [$this, 'render_prompt_section'],
             'ai-comment-guard-prompt'
@@ -118,69 +118,69 @@ class SettingsManager {
     private function add_settings_fields() {
         // Provider fields
         add_settings_field(
-            'ai_comment_guard_provider',
+            'aicog_provider',
             esc_html__('AI Provider', 'ai-comment-guard'),
             [$this, 'render_provider_field'],
             'ai-comment-guard',
-            'ai_comment_guard_provider_section'
+            'aicog_provider_section'
         );
         
         add_settings_field(
-            'ai_comment_guard_provider_token',
+            'aicog_provider_token',
             esc_html__('API Token', 'ai-comment-guard'),
             [$this, 'render_token_field'],
             'ai-comment-guard',
-            'ai_comment_guard_provider_section'
+            'aicog_provider_section'
         );
         
         // Processing fields
         add_settings_field(
-            'ai_comment_guard_auto_process',
+            'aicog_auto_process',
             esc_html__('Auto Process Comments', 'ai-comment-guard'),
             [$this, 'render_auto_process_field'],
             'ai-comment-guard',
-            'ai_comment_guard_processing_section'
+            'aicog_processing_section'
         );
         
         add_settings_field(
-            'ai_comment_guard_spam_threshold',
+            'aicog_spam_threshold',
             esc_html__('Spam Threshold', 'ai-comment-guard'),
             [$this, 'render_spam_threshold_field'],
             'ai-comment-guard',
-            'ai_comment_guard_processing_section'
+            'aicog_processing_section'
         );
         
         add_settings_field(
-            'ai_comment_guard_approval_threshold',
+            'aicog_approval_threshold',
             esc_html__('Approval Threshold', 'ai-comment-guard'),
             [$this, 'render_approval_threshold_field'],
             'ai-comment-guard',
-            'ai_comment_guard_processing_section'
+            'aicog_processing_section'
         );
         
         add_settings_field(
-            'ai_comment_guard_log_enabled',
+            'aicog_log_enabled',
             esc_html__('Enable logging', 'ai-comment-guard'),
             [$this, 'render_log_enabled_field'],
             'ai-comment-guard',
-            'ai_comment_guard_logging_section'
+            'aicog_logging_section'
         );
         
         add_settings_field(
-            'ai_comment_guard_log_retention_days',
+            'aicog_log_retention_days',
             esc_html__('Log retention (days)', 'ai-comment-guard'),
             [$this, 'render_log_retention_field'],
             'ai-comment-guard',
-            'ai_comment_guard_logging_section'
+            'aicog_logging_section'
         );
         
         // Prompt fields
         add_settings_field(
-            'ai_comment_guard_custom_system_message',
+            'aicog_custom_system_message',
             esc_html__('System Message', 'ai-comment-guard'),
             [$this, 'render_system_message_field'],
             'ai-comment-guard-prompt',
-            'ai_comment_guard_prompt_section'
+            'aicog_prompt_section'
         );
         
     }
@@ -436,7 +436,7 @@ class SettingsManager {
         }
         
         // Clear connection test flag
-        delete_transient('ai_comment_guard_connection_tested');
+        delete_transient('aicog_connection_tested');
         
         return array_merge($current, $sanitized);
     }

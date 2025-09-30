@@ -1,7 +1,7 @@
 /**
  * AI Comment Guard Admin JavaScript
  * 
- * @package AI_Comment_Guard
+ * @package AICOG
  * @since 1.0.0
  */
 
@@ -19,8 +19,8 @@
                 form: '#ai-comment-guard-form',
                 testButton: '#test-ai-connection',
                 testResult: '#test-result',
-                providerField: 'select[name="ai_comment_guard_settings[ai_provider]"]',
-                tokenField: 'input[name="ai_comment_guard_settings[ai_provider_token]"]',
+                providerField: 'select[name="aicog_settings[ai_provider]"]',
+                tokenField: 'input[name="aicog_settings[ai_provider_token]"]',
                 logCheckbox: '#log_enabled_checkbox',
                 saveWarning: '#save-warning',
                 connectionWarning: '#connection-required-warning',
@@ -123,22 +123,22 @@
             
             // Validate inputs
             if (!provider || !token) {
-                this.showResult('error', ai_comment_guard_ajax.strings.provider_required);
+                this.showResult('error', aicog_ajax.strings.provider_required);
                 return;
             }
             
             // Show loading state
             $button.prop('disabled', true)
-                   .html(ai_comment_guard_ajax.strings.testing + ' <span class="ai-comment-guard-loading"></span>');
+                   .html(aicog_ajax.strings.testing + ' <span class="ai-comment-guard-loading"></span>');
             $result.hide();
             
             // Make AJAX request
             $.ajax({
-                url: ai_comment_guard_ajax.ajaxurl,
+                url: aicog_ajax.ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'ai_comment_guard_test_connection',
-                    nonce: ai_comment_guard_ajax.nonce,
+                    action: 'aicog_test_connection',
+                    nonce: aicog_ajax.nonce,
                     ai_provider: provider,
                     ai_provider_token: token
                 },
@@ -161,12 +161,12 @@
                     }
                 },
                 error: (xhr, status, error) => {
-                    this.showResult('error', ai_comment_guard_ajax.strings.test_error + ' ' + error);
+                    this.showResult('error', aicog_ajax.strings.test_error + ' ' + error);
                     this.config.state.connectionTested = false;
                 },
                 complete: () => {
                     $button.prop('disabled', false)
-                           .html(ai_comment_guard_ajax.strings.test_button || 'Test AI Connection');
+                           .html(aicog_ajax.strings.test_button || 'Test AI Connection');
                 }
             });
         },
@@ -278,7 +278,7 @@
                 if (!$info.length) {
                     $(e.target).closest('td').append(
                         '<div class="log-menu-info notice notice-info inline" style="margin-top: 10px;">' +
-                        '<p><strong>' + ai_comment_guard_ajax.strings.log_tab_note + '</strong></p>' +
+                        '<p><strong>' + aicog_ajax.strings.log_tab_note + '</strong></p>' +
                         '</div>'
                     );
                 }
@@ -293,7 +293,7 @@
         validateThreshold: function(e) {
             const value = parseFloat($(e.target).val());
             if (value < 0 || value > 1) {
-                alert(ai_comment_guard_ajax.strings.threshold_error);
+                alert(aicog_ajax.strings.threshold_error);
                 $(e.target).val(value < 0 ? 0 : 1).focus();
             }
         },
@@ -307,7 +307,7 @@
             if (!$('.unsaved-changes').length) {
                 $(this.config.selectors.form).prepend(
                     '<div class="notice notice-warning unsaved-changes">' +
-                    '<p><strong>' + ai_comment_guard_ajax.strings.unsaved_changes_notice + '</strong></p>' +
+                    '<p><strong>' + aicog_ajax.strings.unsaved_changes_notice + '</strong></p>' +
                     '</div>'
                 );
             }
@@ -319,7 +319,7 @@
         handleBeforeUnload: function(e) {
             // Only warn if form changed AND we're not submitting
             if (this.config.state.formChanged && !$(this.config.selectors.form).hasClass('submitting')) {
-                const message = ai_comment_guard_ajax.strings.unsaved_changes || 'You have unsaved changes';
+                const message = aicog_ajax.strings.unsaved_changes || 'You have unsaved changes';
                 e.returnValue = message;
                 return message;
             }
@@ -374,11 +374,11 @@
          */
         getStatistics: function(days = 30) {
             return $.ajax({
-                url: ai_comment_guard_ajax.ajaxurl,
+                url: aicog_ajax.ajaxurl,
                 type: 'GET',
                 data: {
-                    action: 'ai_comment_guard_get_stats',
-                    nonce: ai_comment_guard_ajax.nonce,
+                    action: 'aicog_get_stats',
+                    nonce: aicog_ajax.nonce,
                     days: days
                 }
             });
@@ -388,16 +388,16 @@
          * Utility: Delete logs
          */
         deleteLogs: function(days = 0) {
-            if (!confirm(ai_comment_guard_ajax.strings.confirm_delete_logs)) {
+            if (!confirm(aicog_ajax.strings.confirm_delete_logs)) {
                 return false;
             }
             
             return $.ajax({
-                url: ai_comment_guard_ajax.ajaxurl,
+                url: aicog_ajax.ajaxurl,
                 type: 'POST',
                 data: {
-                    action: 'ai_comment_guard_delete_logs',
-                    nonce: ai_comment_guard_ajax.nonce,
+                    action: 'aicog_delete_logs',
+                    nonce: aicog_ajax.nonce,
                     days: days
                 }
             });
@@ -410,11 +410,11 @@
             const $tokenField = $(this.config.selectors.tokenField);
             $tokenField.prop('readonly', true)
                       .addClass('token-locked')
-                      .attr('title', ai_comment_guard_ajax.strings.token_validated_tooltip || 'Token validated. Change provider to modify.');
+                      .attr('title', aicog_ajax.strings.token_validated_tooltip || 'Token validated. Change provider to modify.');
             
             // Add visual indicator
             if (!$tokenField.next('.token-lock-indicator').length) {
-                const lockText = ai_comment_guard_ajax.strings.token_validated || '🔒 Validated';
+                const lockText = aicog_ajax.strings.token_validated || '🔒 Validated';
                 $tokenField.after('<span class="token-lock-indicator" style="margin-left: 8px; color: var(--success-color); font-weight: 600;">' + lockText + '</span>');
             }
             

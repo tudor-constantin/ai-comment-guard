@@ -2,17 +2,17 @@
 /**
  * AI Comment Guard - Main Plugin Class
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Core
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Core;
+namespace AICOG\Core;
 
-use AI_Comment_Guard\Admin\AdminManager;
-use AI_Comment_Guard\Comments\CommentProcessor;
-use AI_Comment_Guard\Database\DatabaseManager;
-use AI_Comment_Guard\Utils\Config;
+use AICOG\Admin\AdminManager;
+use AICOG\Comments\CommentProcessor;
+use AICOG\Database\DatabaseManager;
+use AICOG\Utils\Config;
 
 /**
  * Main Plugin Class
@@ -79,7 +79,7 @@ class Plugin {
         $this->register_hooks();
         
         // Register cleanup hook
-        add_action('ai_comment_guard_cleanup', [$this, 'cleanup_old_logs']);
+        add_action('aicog_cleanup', [$this, 'cleanup_old_logs']);
     }
     
     /**
@@ -107,7 +107,7 @@ class Plugin {
     private function register_hooks() {
         // Activation/deactivation hooks are now registered in main plugin file
         // Only register uninstall hook here
-        register_uninstall_hook(AI_COMMENT_GUARD_PLUGIN_FILE, [__CLASS__, 'uninstall']);
+        register_uninstall_hook(AICOG_PLUGIN_FILE, [__CLASS__, 'uninstall']);
     }
     
     /**
@@ -123,10 +123,10 @@ class Plugin {
         $this->config->set_defaults();
         
         // Clear any scheduled hooks
-        wp_clear_scheduled_hook('ai_comment_guard_cleanup');
+        wp_clear_scheduled_hook('aicog_cleanup');
         
         // Schedule cleanup
-        wp_schedule_event(time(), 'daily', 'ai_comment_guard_cleanup');
+        wp_schedule_event(time(), 'daily', 'aicog_cleanup');
         
         // Flush rewrite rules
         flush_rewrite_rules();
@@ -139,7 +139,7 @@ class Plugin {
      */
     public function deactivate() {
         // Clear scheduled hooks
-        wp_clear_scheduled_hook('ai_comment_guard_cleanup');
+        wp_clear_scheduled_hook('aicog_cleanup');
         
         // Flush rewrite rules
         flush_rewrite_rules();
@@ -165,11 +165,11 @@ class Plugin {
         $database->drop_tables();
         
         // Delete options
-        delete_option('ai_comment_guard_settings');
-        delete_option('ai_comment_guard_version');
+        delete_option('aicog_settings');
+        delete_option('aicog_version');
         
         // Delete transients
-        delete_transient('ai_comment_guard_connection_tested');
+        delete_transient('aicog_connection_tested');
     }
     
     /**

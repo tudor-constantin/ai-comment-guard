@@ -2,14 +2,14 @@
 /**
  * AI Comment Guard - Logs Page
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Admin\Pages
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Admin\Pages;
+namespace AICOG\Admin\Pages;
 
-use AI_Comment_Guard\Database\DatabaseManager;
+use AICOG\Database\DatabaseManager;
 
 /**
  * Logs Page
@@ -99,7 +99,7 @@ class LogsPage {
     private function handle_actions() {
         if (isset($_POST['delete_logs'])) {
             $nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
-            if (!wp_verify_nonce($nonce, 'ai_comment_guard_clear_logs')) {
+            if (!wp_verify_nonce($nonce, 'aicog_clear_logs')) {
                 echo '<div class="notice notice-error"><p>' . esc_html__('Security check failed. Please try again.', 'ai-comment-guard') . '</p></div>';
                 return;
             }
@@ -121,7 +121,7 @@ class LogsPage {
      */
     private function render_statistics() {
         // Get retention days from config
-        $config = new \AI_Comment_Guard\Utils\Config();
+        $config = new \AICOG\Utils\Config();
         $retention_days = $config->get('log_retention_days', 30);
         
         // If retention is 0 (indefinite), show last 30 days for stats
@@ -211,7 +211,7 @@ class LogsPage {
         ?>
         <div class="alignleft actions">
             <form method="post" style="display: inline;">
-                <?php wp_nonce_field('ai_comment_guard_clear_logs'); ?>
+                <?php wp_nonce_field('aicog_clear_logs'); ?>
                 <input type="submit" 
                        name="delete_logs" 
                        class="button action" 
@@ -379,7 +379,7 @@ class LogsPage {
      * @return void
      */
     public function handle_delete_logs() {
-        check_ajax_referer('ai_comment_guard_nonce', 'nonce');
+        check_ajax_referer('aicog_nonce', 'nonce');
         
         if (!current_user_can('manage_options')) {
             wp_die('Unauthorized');

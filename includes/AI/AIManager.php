@@ -2,17 +2,17 @@
 /**
  * AI Comment Guard - AI Manager
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage AI
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\AI;
+namespace AICOG\AI;
 
-use AI_Comment_Guard\AI\Providers\OpenAIProvider;
-use AI_Comment_Guard\AI\Providers\AnthropicProvider;
-use AI_Comment_Guard\AI\Providers\OpenRouterProvider;
-use AI_Comment_Guard\AI\Providers\AbstractProvider;
+use AICOG\AI\Providers\OpenAIProvider;
+use AICOG\AI\Providers\AnthropicProvider;
+use AICOG\AI\Providers\OpenRouterProvider;
+use AICOG\AI\Providers\AbstractProvider;
 
 /**
  * AI Manager - Factory for AI Providers

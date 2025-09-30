@@ -2,12 +2,12 @@
 /**
  * AI Comment Guard - Database Manager
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Database
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Database;
+namespace AICOG\Database;
 
 /**
  * Database Manager
@@ -32,7 +32,7 @@ class DatabaseManager {
     public function __construct() {
         global $wpdb;
         $this->wpdb = $wpdb;
-        $this->log_table = $wpdb->prefix . 'ai_comment_guard_log';
+        $this->log_table = $wpdb->prefix . 'aicog_log';
     }
     
     /**
@@ -68,7 +68,7 @@ class DatabaseManager {
         dbDelta($sql);
         
         // Store version for future upgrades
-        update_option('ai_comment_guard_db_version', '1.0.0');
+        update_option('aicog_db_version', '1.0.0');
     }
     
     /**
@@ -81,7 +81,7 @@ class DatabaseManager {
         $drop_sql = "DROP TABLE IF EXISTS " . $this->log_table;
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $this->wpdb->query($drop_sql);
-        delete_option('ai_comment_guard_db_version');
+        delete_option('aicog_db_version');
     }
     
     /**
@@ -281,7 +281,7 @@ class DatabaseManager {
      * @return int Number of deleted rows
      */
     public function clean_old_logs() {
-        $config = new \AI_Comment_Guard\Utils\Config();
+        $config = new \AICOG\Utils\Config();
         $retention_days = $config->get('log_retention_days', 30);
         
         // If retention is 0, don't delete anything

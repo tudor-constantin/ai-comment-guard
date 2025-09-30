@@ -2,16 +2,16 @@
 /**
  * AI Comment Guard - Comment Processor
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Comments
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Comments;
+namespace AICOG\Comments;
 
-use AI_Comment_Guard\Utils\Config;
-use AI_Comment_Guard\Database\DatabaseManager;
-use AI_Comment_Guard\AI\AIManager;
+use AICOG\Utils\Config;
+use AICOG\Database\DatabaseManager;
+use AICOG\AI\AIManager;
 
 /**
  * Comment Processor

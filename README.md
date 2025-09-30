@@ -152,10 +152,10 @@ ai-comment-guard/
 add_filter('pre_comment_approved', 'your_function', 10, 2);
 
 // Action after AI analysis
-do_action('ai_comment_guard_after_analysis', $comment_data, $analysis);
+do_action('aicog_after_analysis', $comment_data, $analysis);
 
 // Filter AI prompt
-add_filter('ai_comment_guard_prompt', 'customize_prompt', 10, 2);
+add_filter('aicog_prompt', 'customize_prompt', 10, 2);
 ```
 
 ## 🧪 Testing

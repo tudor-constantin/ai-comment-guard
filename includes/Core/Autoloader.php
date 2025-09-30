@@ -2,12 +2,12 @@
 /**
  * AI Comment Guard - Autoloader
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Core
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Core;
+namespace AICOG\Core;
 
 /**
  * Class Autoloader
@@ -21,7 +21,7 @@ class Autoloader {
     /**
      * @var string The plugin namespace
      */
-    private $namespace = 'AI_Comment_Guard';
+    private $namespace = 'AICOG';
     
     /**
      * @var string The plugin base directory

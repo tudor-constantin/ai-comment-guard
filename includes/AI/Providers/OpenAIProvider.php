@@ -2,12 +2,12 @@
 /**
  * AI Comment Guard - OpenAI Provider
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage AI\Providers
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\AI\Providers;
+namespace AICOG\AI\Providers;
 
 /**
  * OpenAI Provider

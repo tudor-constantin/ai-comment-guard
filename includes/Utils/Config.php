@@ -2,12 +2,12 @@
 /**
  * AI Comment Guard - Configuration Manager
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Utils
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Utils;
+namespace AICOG\Utils;
 
 /**
  * Configuration Manager
@@ -92,7 +92,7 @@ class Config {
      * @return void
      */
     public function set_defaults() {
-        add_option('ai_comment_guard_settings', $this->defaults);
+        add_option('aicog_settings', $this->defaults);
         $this->settings = $this->defaults;
     }
     
@@ -102,7 +102,7 @@ class Config {
      * @return void
      */
     private function load_settings() {
-        $this->settings = get_option('ai_comment_guard_settings', $this->defaults);
+        $this->settings = get_option('aicog_settings', $this->defaults);
     }
     
     /**
@@ -111,7 +111,7 @@ class Config {
      * @return bool
      */
     private function save_settings() {
-        return update_option('ai_comment_guard_settings', $this->settings);
+        return update_option('aicog_settings', $this->settings);
     }
     
     /**

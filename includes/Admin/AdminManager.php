@@ -2,18 +2,18 @@
 /**
  * AI Comment Guard - Admin Manager
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Admin
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Admin;
+namespace AICOG\Admin;
 
-use AI_Comment_Guard\Utils\Config;
-use AI_Comment_Guard\Database\DatabaseManager;
-use AI_Comment_Guard\Admin\Pages\SettingsPage;
-use AI_Comment_Guard\Admin\Pages\LogsPage;
-use AI_Comment_Guard\Admin\Settings\SettingsManager;
+use AICOG\Utils\Config;
+use AICOG\Database\DatabaseManager;
+use AICOG\Admin\Pages\SettingsPage;
+use AICOG\Admin\Pages\LogsPage;
+use AICOG\Admin\Settings\SettingsManager;
 
 /**
  * Admin Manager
@@ -80,7 +80,7 @@ class AdminManager {
         $this->register_ajax_handlers();
         
         // Add plugin action links
-        add_filter('plugin_action_links_' . AI_COMMENT_GUARD_PLUGIN_BASENAME, [$this, 'add_plugin_action_links']);
+        add_filter('plugin_action_links_' . AICOG_PLUGIN_BASENAME, [$this, 'add_plugin_action_links']);
     }
     
     /**
@@ -196,26 +196,26 @@ class AdminManager {
         // Enqueue styles
         wp_enqueue_style(
             'ai-comment-guard-admin',
-            AI_COMMENT_GUARD_PLUGIN_URL . 'admin/css/admin.css',
+            AICOG_PLUGIN_URL . 'admin/css/admin.css',
             [],
-            AI_COMMENT_GUARD_VERSION
+            AICOG_VERSION
         );
         
         // Enqueue scripts
         wp_enqueue_script(
             'ai-comment-guard-admin',
-            AI_COMMENT_GUARD_PLUGIN_URL . 'admin/js/admin.js',
+            AICOG_PLUGIN_URL . 'admin/js/admin.js',
             ['jquery'],
-            AI_COMMENT_GUARD_VERSION,
+            AICOG_VERSION,
             true
         );
         
         // Localize script
         wp_localize_script(
             'ai-comment-guard-admin',
-            'ai_comment_guard_ajax',
+            'aicog_ajax',
             [
-                'nonce' => wp_create_nonce('ai_comment_guard_nonce'),
+                'nonce' => wp_create_nonce('aicog_nonce'),
                 'ajaxurl' => admin_url('admin-ajax.php'),
                 'strings' => $this->get_js_strings()
             ]
@@ -252,13 +252,13 @@ class AdminManager {
      */
     private function register_ajax_handlers() {
         // Test AI connection
-        add_action('wp_ajax_ai_comment_guard_test_connection', [$this, 'handle_test_connection']);
+        add_action('wp_ajax_aicog_test_connection', [$this, 'handle_test_connection']);
         
         // Delete logs
-        add_action('wp_ajax_ai_comment_guard_delete_logs', [$this->logs_page, 'handle_delete_logs']);
+        add_action('wp_ajax_aicog_delete_logs', [$this->logs_page, 'handle_delete_logs']);
         
         // Get statistics
-        add_action('wp_ajax_ai_comment_guard_get_stats', [$this, 'handle_get_stats']);
+        add_action('wp_ajax_aicog_get_stats', [$this, 'handle_get_stats']);
     }
     
     /**
@@ -268,7 +268,7 @@ class AdminManager {
      * @return void
      */
     public function handle_test_connection() {
-        check_ajax_referer('ai_comment_guard_nonce', 'nonce');
+        check_ajax_referer('aicog_nonce', 'nonce');
         
         if (!current_user_can('manage_options')) {
             wp_die('Unauthorized');
@@ -282,7 +282,7 @@ class AdminManager {
         }
         
         try {
-            $ai_manager = new \AI_Comment_Guard\AI\AIManager($provider, $token);
+            $ai_manager = new \AICOG\AI\AIManager($provider, $token);
             
             if ($ai_manager->test_connection()) {
                 wp_send_json_success([
@@ -307,7 +307,7 @@ class AdminManager {
      * @return void
      */
     public function handle_get_stats() {
-        check_ajax_referer('ai_comment_guard_nonce', 'nonce');
+        check_ajax_referer('aicog_nonce', 'nonce');
         
         if (!current_user_can('manage_options')) {
             wp_die('Unauthorized');

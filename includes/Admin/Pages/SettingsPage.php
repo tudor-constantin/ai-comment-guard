@@ -2,15 +2,15 @@
 /**
  * AI Comment Guard - Settings Page
  *
- * @package AI_Comment_Guard
+ * @package AICOG
  * @subpackage Admin\Pages
  * @since 1.0.0
  */
 
-namespace AI_Comment_Guard\Admin\Pages;
+namespace AICOG\Admin\Pages;
 
-use AI_Comment_Guard\Utils\Config;
-use AI_Comment_Guard\Admin\Settings\SettingsManager;
+use AICOG\Utils\Config;
+use AICOG\Admin\Settings\SettingsManager;
 
 /**
  * Settings Page
@@ -57,7 +57,7 @@ class SettingsPage {
         ?>
         <form method="post" action="options.php" id="ai-comment-guard-form">
             <?php
-            settings_fields('ai_comment_guard_settings_group');
+            settings_fields('aicog_settings_group');
             do_settings_sections('ai-comment-guard');
             ?>
             
@@ -85,7 +85,7 @@ class SettingsPage {
             
             <form method="post" action="options.php">
                 <?php
-                settings_fields('ai_comment_guard_settings_group');
+                settings_fields('aicog_settings_group');
                 do_settings_sections('ai-comment-guard-prompt');
                 submit_button(__('Save Prompt Settings', 'ai-comment-guard'));
                 ?>
