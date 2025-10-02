@@ -157,13 +157,9 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 == Screenshots ==
 
-1. **Settings Page** - Easy-to-use configuration interface
-2. **AI Provider Selection** - Choose from multiple AI providers
-3. **Threshold Configuration** - Set confidence levels for actions
-4. **Custom Prompts** - Tailor AI behavior to your needs
-5. **Logs Dashboard** - Monitor AI decisions and statistics
-6. **Connection Test** - Verify your API configuration
-7. **Statistics Overview** - Track moderation performance
+1. **Settings Page** – Configure your AI provider, API key, thresholds, and logging options.
+2. **Prompt Customization** – Define and adjust the system prompt to control AI moderation behavior.
+3. **Moderation Logs** – Review processed comments, AI analysis results, and final moderation actions.
 
 == Changelog ==
 
