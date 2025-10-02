@@ -200,13 +200,13 @@ Welcome to AI Comment Guard! This is the initial stable release with full functi
 
 For support, feature requests, or bug reports, please visit:
 * [LinkedIn Profile](https://www.linkedin.com/in/tudor-eusebiu-constantin/)
-* [GitHub Repository](https://github.com/tudor-constantin)
+* [GitHub Repository](https://github.com/tudor-constantin/ai-comment-guard)
 
 = Contributing =
 
 We welcome contributions! If you'd like to contribute to the development of AI Comment Guard:
 * Report bugs or suggest features through the support forum
-* Submit pull requests on GitHub (repository coming soon)
+* Submit pull requests on GitHub
 * Help translate the plugin to your language
 
 = Credits =
