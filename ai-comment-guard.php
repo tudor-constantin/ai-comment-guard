@@ -2,8 +2,8 @@
 /**
  * Plugin Name: AI Comment Guard
  * Plugin URI: https://www.linkedin.com/in/tudor-eusebiu-constantin/
- * Description: Un plugin para gestionar con IA los comentarios de WordPress. Analiza automáticamente los comentarios y los aprueba, rechaza o marca como spam usando un proveedor de IA personalizable.
- * Version: 1.1.0
+ * Description: AI-powered WordPress comment management plugin. Automatically analyzes comments and approves, rejects or marks them as spam using a customizable AI provider.
+ * Version: 1.1.1
  * Author: Tudor Constantin
  * License: GPL v2 or later
  * Text Domain: ai-comment-guard
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('AICOG_VERSION', '1.1.0');
+define('AICOG_VERSION', '1.1.1');
 define('AICOG_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('AICOG_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('AICOG_PLUGIN_FILE', __FILE__);

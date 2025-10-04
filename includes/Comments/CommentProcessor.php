@@ -116,12 +116,11 @@ class CommentProcessor {
         // Create AI manager
         $ai_manager = new AIManager($provider_name, $token);
         
-        // Get prompts
+        // Get system message
         $system_message = $this->config->get_prompt('system');
-        $custom_prompt = $this->config->get_prompt('user');
         
         // Analyze comment
-        return $ai_manager->analyze_comment($commentdata, $system_message, $custom_prompt);
+        return $ai_manager->analyze_comment($commentdata, $system_message);
     }
     
     /**

@@ -109,19 +109,18 @@ class AIManager {
      * @return string
      */
     private function build_prompt($comment_data) {
-        // Fixed prompt - no custom prompt editing allowed
-        $prompt = "Analiza el siguiente comentario y determina si debe ser aprobado, rechazado o marcado como spam.\n";
-        $prompt .= "Responde ÚNICAMENTE con un JSON válido con la siguiente estructura:\n";
-        $prompt .= '{"analysis": "approved|rejected|spam", "confidence": 0.0-1.0, "reason": "explicación breve"}' . "\n\n";
-        $prompt .= "Criterios:\n";
-        $prompt .= "- SPAM: Comentarios promocionales, enlaces sospechosos, texto sin sentido, repetitivo\n";
-        $prompt .= "- REJECTED: Comentarios ofensivos, inapropiados, fuera de tema\n";
-        $prompt .= "- APPROVED: Comentarios constructivos, relevantes, apropiados\n\n";
-        $prompt .= "Comentario a analizar:\n";
-        $prompt .= "Autor: " . $comment_data['comment_author'] . "\n";
-        $prompt .= "Email: " . $comment_data['comment_author_email'] . "\n";
-        $prompt .= "URL: " . $comment_data['comment_author_url'] . "\n";
-        $prompt .= "Contenido: " . $comment_data['comment_content'];
+        $prompt = __("Analyze the following comment and determine if it should be approved, rejected, or marked as spam.", 'ai-comment-guard') . "\n";
+        $prompt .= __("Respond ONLY with a valid JSON with the following structure:", 'ai-comment-guard') . "\n";
+        $prompt .= '{"analysis": "approved|rejected|spam", "confidence": 0.0-1.0, "reason": "brief explanation"}' . "\n\n";
+        $prompt .= __("Criteria:", 'ai-comment-guard') . "\n";
+        $prompt .= __("- SPAM: Promotional comments, suspicious links, nonsensical text, repetitive content", 'ai-comment-guard') . "\n";
+        $prompt .= __("- REJECTED: Offensive comments, inappropriate content, off-topic", 'ai-comment-guard') . "\n";
+        $prompt .= __("- APPROVED: Constructive comments, relevant, appropriate", 'ai-comment-guard') . "\n\n";
+        $prompt .= __("Comment to analyze:", 'ai-comment-guard') . "\n";
+        $prompt .= __("Author:", 'ai-comment-guard') . " " . $comment_data['comment_author'] . "\n";
+        $prompt .= __("Email:", 'ai-comment-guard') . " " . $comment_data['comment_author_email'] . "\n";
+        $prompt .= __("URL:", 'ai-comment-guard') . " " . $comment_data['comment_author_url'] . "\n";
+        $prompt .= __("Content:", 'ai-comment-guard') . " " . $comment_data['comment_content'];
         
         return $prompt;
     }

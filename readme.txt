@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,14 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed system message integration in AI prompt
+* Made prompt strings translatable 
+* Optimized code by removing unused parameters
+* Translated plugin description to English
+* Improved UX by disabling API token field until provider is selected
+* Updated translation files with new strings
+
 = 1.1.0 =
 * Added AJAX connection testing for AI providers
 * Enhanced settings interface with real-time connection validation
@@ -190,6 +198,9 @@ Currently, you can configure one provider at a time, but you can switch between 
 * Automatic cleanup and maintenance features
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+This update fixes system message integration and improves internationalization support. Update recommended for all users.
 
 = 1.0.0 =
 Welcome to AI Comment Guard! This is the initial stable release with full functionality for AI-powered comment moderation.

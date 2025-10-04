@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-09-24 14:00+0000
+# POT-Creation-Date: 2025-10-04 20:37+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.1.0\n"
+"Project-Id-Version: AI Comment Guard 1.1.1\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-09-24 14:00+0000\n"
+"POT-Creation-Date: 2025-10-04 20:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,24 +22,36 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/Admin/Pages/LogsPage.php:257
+#: includes/Admin/Pages/LogsPage.php:243
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Admin/Pages/LogsPage.php:408
+#: includes/Admin/Pages/LogsPage.php:394
 msgid "%d log deleted"
 msgid_plural "%d logs deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Admin/Pages/LogsPage.php:269
+#: includes/Admin/Pages/LogsPage.php:255
 msgid "&laquo; Previous"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:298
-#: includes/Admin/Pages/LogsPage.php:349
+#: includes/AI/AIManager.php:118
+msgid "- APPROVED: Constructive comments, relevant, appropriate"
+msgstr ""
+
+#: includes/AI/AIManager.php:117
+msgid "- REJECTED: Offensive comments, inappropriate content, off-topic"
+msgstr ""
+
+#: includes/AI/AIManager.php:116
+msgid "- SPAM: Promotional comments, suspicious links, nonsensical text, repetitive content"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:284
+#: includes/Admin/Pages/LogsPage.php:335
 msgid "AI Analysis"
 msgstr ""
 
@@ -75,7 +87,7 @@ msgstr ""
 msgid "API Token"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:360
+#: includes/Admin/Pages/LogsPage.php:346
 msgid "Action"
 msgstr ""
 
@@ -83,7 +95,11 @@ msgstr ""
 msgid "All Actions"
 msgstr ""
 
-#: includes/AI/AIManager.php:229
+#: includes/AI/AIManager.php:112
+msgid "Analyze the following comment and determine if it should be approved, rejected, or marked as spam."
+msgstr ""
+
+#: includes/AI/AIManager.php:228
 msgid "Anthropic (Claude)"
 msgstr ""
 
@@ -92,21 +108,25 @@ msgid "Approval Threshold"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:185
-#: includes/Admin/Pages/LogsPage.php:381
+#: includes/Admin/Pages/LogsPage.php:367
 msgid "Approved"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:236
-#: includes/Admin/Pages/LogsPage.php:233
+#: includes/Admin/Pages/LogsPage.php:219
 msgid "Are you sure you want to delete all logs?"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:342
+#: includes/Admin/Pages/LogsPage.php:328
 msgid "Author"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:297
+#: includes/Admin/Pages/LogsPage.php:283
 msgid "Author Info"
+msgstr ""
+
+#: includes/AI/AIManager.php:120
+msgid "Author:"
 msgstr ""
 
 #: includes/Admin/Settings/SettingsManager.php:139
@@ -125,17 +145,21 @@ msgstr ""
 msgid "Avg: %s%%"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:232
+#: includes/Admin/Pages/LogsPage.php:218
 msgid "Clear All Logs"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:296
-#: includes/Admin/Pages/LogsPage.php:332
+#: includes/Admin/Pages/LogsPage.php:282
+#: includes/Admin/Pages/LogsPage.php:318
 msgid "Comment"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:338
+#: includes/Admin/Pages/LogsPage.php:324
 msgid "Comment Content"
+msgstr ""
+
+#: includes/AI/AIManager.php:119
+msgid "Comment to analyze:"
 msgstr ""
 
 #: includes/Admin/Settings/SettingsManager.php:316
@@ -162,7 +186,7 @@ msgstr ""
 msgid "Configure your custom AI provider to automatically analyze comments and keep your site spam-free."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:297
+#: includes/Admin/AdminManager.php:298
 msgid "Connection error: %s"
 msgstr ""
 
@@ -170,7 +194,7 @@ msgstr ""
 msgid "Connection failed:"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:288
+#: includes/Admin/AdminManager.php:289
 msgid "Connection successful with AI provider"
 msgstr ""
 
@@ -178,8 +202,16 @@ msgstr ""
 msgid "Connection successful!"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:292
+#: includes/Admin/AdminManager.php:293
 msgid "Connection test failed"
+msgstr ""
+
+#: includes/AI/AIManager.php:123
+msgid "Content:"
+msgstr ""
+
+#: includes/AI/AIManager.php:115
+msgid "Criteria:"
 msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:83
@@ -190,8 +222,12 @@ msgstr ""
 msgid "Customize the prompt sent to the AI for comment analysis."
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:328
+#: includes/Admin/Pages/LogsPage.php:314
 msgid "Date"
+msgstr ""
+
+#: includes/AI/AIManager.php:121
+msgid "Email:"
 msgstr ""
 
 #: includes/Admin/Settings/SettingsManager.php:163
@@ -207,17 +243,17 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:299
+#: includes/Admin/Pages/LogsPage.php:285
 msgid "Final Action"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:194
-#: includes/Admin/Pages/LogsPage.php:384
+#: includes/Admin/Pages/LogsPage.php:370
 msgid "Held"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:300
-#: includes/Admin/Pages/LogsPage.php:366
+#: includes/Admin/Pages/LogsPage.php:286
+#: includes/Admin/Pages/LogsPage.php:352
 msgid "IP Address"
 msgstr ""
 
@@ -225,7 +261,7 @@ msgstr ""
 msgid "Include criteria for spam, rejection, and approval"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:356
+#: includes/Admin/Pages/LogsPage.php:342
 msgid "Invalid response"
 msgstr ""
 
@@ -245,11 +281,11 @@ msgstr ""
 msgid "Logs deleted successfully."
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:270
+#: includes/Admin/Pages/LogsPage.php:256
 msgid "Next &raquo;"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:306
+#: includes/Admin/Pages/LogsPage.php:292
 msgid "No logs available."
 msgstr ""
 
@@ -261,11 +297,11 @@ msgstr ""
 msgid "Number of days to keep logs. Set to 0 to keep logs indefinitely. Default: 30 days."
 msgstr ""
 
-#: includes/AI/AIManager.php:228
+#: includes/AI/AIManager.php:227
 msgid "OpenAI (GPT-4, GPT-3.5)"
 msgstr ""
 
-#: includes/AI/AIManager.php:230
+#: includes/AI/AIManager.php:229
 msgid "OpenRouter (Multiple models)"
 msgstr ""
 
@@ -273,7 +309,7 @@ msgstr ""
 msgid "Please select a provider and enter the API token"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:280
+#: includes/Admin/AdminManager.php:281
 msgid "Please select a provider and provide the token"
 msgstr ""
 
@@ -281,7 +317,7 @@ msgstr ""
 msgid "Please test the connection before saving"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:295
+#: includes/Admin/Pages/LogsPage.php:281
 msgid "Processing Date"
 msgstr ""
 
@@ -298,12 +334,16 @@ msgid "Prompt Guidelines"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:191
-#: includes/Admin/Pages/LogsPage.php:383
+#: includes/Admin/Pages/LogsPage.php:369
 msgid "Rejected"
 msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:99
 msgid "Request JSON format response for reliable parsing"
+msgstr ""
+
+#: includes/AI/AIManager.php:113
+msgid "Respond ONLY with a valid JSON with the following structure:"
 msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:90
@@ -335,7 +375,7 @@ msgid "Select your preferred AI provider"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:114
-#: includes/Admin/AdminManager.php:331
+#: includes/Admin/AdminManager.php:332
 msgid "Settings"
 msgstr ""
 
@@ -344,7 +384,7 @@ msgid "Setup Required"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:188
-#: includes/Admin/Pages/LogsPage.php:382
+#: includes/Admin/Pages/LogsPage.php:368
 msgid "Spam"
 msgstr ""
 
@@ -405,8 +445,12 @@ msgstr ""
 msgid "Total Processed"
 msgstr ""
 
-#: includes/Admin/Pages/LogsPage.php:343
-#: includes/Admin/Pages/LogsPage.php:367
+#: includes/AI/AIManager.php:122
+msgid "URL:"
+msgstr ""
+
+#: includes/Admin/Pages/LogsPage.php:329
+#: includes/Admin/Pages/LogsPage.php:353
 msgid "Unknown"
 msgstr ""
 

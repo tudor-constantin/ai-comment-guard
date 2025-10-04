@@ -63,6 +63,11 @@
             const provider = $(this.config.selectors.providerField).val();
             const token = $(this.config.selectors.tokenField).val();
             
+            // Disable token field if no provider selected or if it's the default "Select provider..." option
+            if (!provider || provider === '') {
+                $(this.config.selectors.tokenField).prop('disabled', true);
+            }
+            
             // If we have saved values, assume they were validated and lock the token
             if (provider && token) {
                 this.config.state.connectionTested = true;
@@ -229,6 +234,14 @@
          */
         handleProviderChange: function() {
             const provider = $(this.config.selectors.providerField).val();
+            
+            // Enable/disable token field based on provider selection
+            if (provider && provider !== '') {
+                $(this.config.selectors.tokenField).prop('disabled', false);
+            } else {
+                $(this.config.selectors.tokenField).prop('disabled', true).val('');
+                $('#test-connection-section').hide();
+            }
             
             // Check if provider changed from validated one
             if (this.config.state.validatedProvider && provider !== this.config.state.validatedProvider) {
