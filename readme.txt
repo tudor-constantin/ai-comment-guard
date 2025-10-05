@@ -159,7 +159,8 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 1. **Settings Page** – Configure your AI provider, API key, thresholds, and logging options.
 2. **Prompt Customization** – Define and adjust the system prompt to control AI moderation behavior.
-3. **Moderation Logs** – Review processed comments, AI analysis results, and final moderation actions.
+3. **Preview Page** – Test and preview AI comment analysis results before deployment.
+4. **Moderation Logs** – Review processed comments, AI analysis results, and final moderation actions.
 
 == Changelog ==
 
@@ -168,6 +169,7 @@ Currently, you can configure one provider at a time, but you can switch between 
 * New feature: Added Preview tab for testing AI comment analysis before deployment
 * Improved UI: Clean preview interface with detailed analysis breakdown
 * Better UX: Test different comment types and see how AI processes them
+* Updated WordPress screenshots to reflect the latest plugin interface and features
 
 = 1.2.1 =
 * Performance optimization: Added database indexing for comment_hash column to improve duplicate checking
