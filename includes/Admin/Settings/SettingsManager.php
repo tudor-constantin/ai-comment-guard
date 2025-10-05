@@ -238,7 +238,6 @@ class SettingsManager {
                 </option>
             <?php endforeach; ?>
         </select>
-        <label for="ai_provider"><?php esc_html_e('Select your AI provider', 'ai-comment-guard'); ?></label>
         <p class="description"><?php esc_html_e('Select your preferred AI provider', 'ai-comment-guard'); ?></p>
         <?php
     }
@@ -249,13 +248,52 @@ class SettingsManager {
      * @return void
      */
     public function render_token_field() {
-        $value = $this->config->get('ai_provider_token', '');
+        $has_token = $this->config->has_sensitive_value('ai_provider_token');
+        $masked_token = $has_token ? $this->config->get_masked('ai_provider_token') : '';
+        
+        if ($has_token) {
+            ?>
+            <div class="ai-comment-guard-token-saved">
+                <div class="token-display">
+                    <span class="token-mask"><?php echo esc_html($masked_token); ?></span>
+                    <span class="token-status success">
+                        <?php esc_html_e('Token Saved & Encrypted', 'ai-comment-guard'); ?>
+                    </span>
+                </div>
+                <div class="token-actions">
+                    <button type="button" id="change-token-btn" class="button button-secondary">
+                        <?php esc_html_e('Change Token', 'ai-comment-guard'); ?>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="ai-comment-guard-token-change" id="token-change-section" style="display: none;">
+                <input type="password" 
+                       name="<?php echo esc_attr($this->option_name); ?>[ai_provider_token]" 
+                       value="" 
+                       class="regular-text" 
+                       placeholder="<?php esc_attr_e('Enter new API token...', 'ai-comment-guard'); ?>" />
+                <div class="token-change-actions">
+                    <button type="button" id="cancel-change-btn" class="button button-secondary" style="margin-top: 10px;">
+                        <?php esc_html_e('Cancel', 'ai-comment-guard'); ?>
+                    </button>
+                </div>
+            </div>
+            <?php
+        } else {
+            // No token saved - show input field
+            ?>
+            <input type="password" 
+                   name="<?php echo esc_attr($this->option_name); ?>[ai_provider_token]" 
+                   value="" 
+                   class="regular-text" 
+                   placeholder="<?php esc_attr_e('Enter your API token...', 'ai-comment-guard'); ?>" />
+            <?php
+        }
         ?>
-        <input type="password" 
-               name="<?php echo esc_attr($this->option_name); ?>[ai_provider_token]" 
-               value="<?php echo esc_attr($value); ?>" 
-               class="regular-text" />
-        <p class="description"><?php esc_html_e('Enter your API token for the selected provider.', 'ai-comment-guard'); ?></p>
+        <p class="description">
+            <?php esc_html_e('Enter your API token for the selected provider. Tokens are encrypted before being stored.', 'ai-comment-guard'); ?>
+        </p>
         <?php
     }
     
@@ -408,9 +446,13 @@ class SettingsManager {
                 $sanitized['ai_provider'] = sanitize_text_field($input['ai_provider']);
             }
             
-            // Sanitize token
-            if (isset($input['ai_provider_token'])) {
+            // Sanitize token - only update if a new token is provided
+            if (isset($input['ai_provider_token']) && !empty($input['ai_provider_token'])) {
                 $sanitized['ai_provider_token'] = sanitize_text_field($input['ai_provider_token']);
+            } elseif (isset($input['ai_provider_token']) && empty($input['ai_provider_token']) && !empty($current['ai_provider_token'])) {
+                // Empty token submitted but we have an existing token - keep the existing one
+                // This happens when the form is submitted without changing the token
+                unset($input['ai_provider_token']); // Don't process empty token
             }
             
             // Sanitize other fields

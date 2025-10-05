@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-10-04 20:37+0000
+# POT-Creation-Date: 2025-10-05 00:04+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.1.1\n"
+"Project-Id-Version: AI Comment Guard 1.2.0\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-10-04 20:37+0000\n"
+"POT-Creation-Date: 2025-10-05 00:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 msgid "Auto Process Comments"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:277
+#: includes/Admin/Settings/SettingsManager.php:315
 msgid "Automatically process new comments with AI analysis"
 msgstr ""
 
@@ -143,6 +143,14 @@ msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:159
 msgid "Avg: %s%%"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:278
+msgid "Cancel"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:265
+msgid "Change Token"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:218
@@ -162,11 +170,11 @@ msgstr ""
 msgid "Comment to analyze:"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:316
+#: includes/Admin/Settings/SettingsManager.php:354
 msgid "Confidence threshold for automatic approval (0.0 - 1.0)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:297
+#: includes/Admin/Settings/SettingsManager.php:335
 msgid "Confidence threshold for marking as spam (0.0 - 1.0)"
 msgstr ""
 
@@ -186,7 +194,7 @@ msgstr ""
 msgid "Configure your custom AI provider to automatically analyze comments and keep your site spam-free."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:298
+#: includes/Admin/AdminManager.php:299
 msgid "Connection error: %s"
 msgstr ""
 
@@ -194,7 +202,7 @@ msgstr ""
 msgid "Connection failed:"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:289
+#: includes/Admin/AdminManager.php:290
 msgid "Connection successful with AI provider"
 msgstr ""
 
@@ -202,7 +210,7 @@ msgstr ""
 msgid "Connection successful!"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:293
+#: includes/Admin/AdminManager.php:294
 msgid "Connection test failed"
 msgstr ""
 
@@ -231,12 +239,20 @@ msgid "Email:"
 msgstr ""
 
 #: includes/Admin/Settings/SettingsManager.php:163
-#: includes/Admin/Settings/SettingsManager.php:336
+#: includes/Admin/Settings/SettingsManager.php:374
 msgid "Enable logging"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:258
-msgid "Enter your API token for the selected provider."
+#: includes/Admin/Settings/SettingsManager.php:275
+msgid "Enter new API token..."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:295
+msgid "Enter your API token for the selected provider. Tokens are encrypted before being stored."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:290
+msgid "Enter your API token..."
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:199
@@ -293,7 +309,7 @@ msgstr ""
 msgid "Note: After saving, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:357
+#: includes/Admin/Settings/SettingsManager.php:395
 msgid "Number of days to keep logs. Set to 0 to keep logs indefinitely. Default: 30 days."
 msgstr ""
 
@@ -309,7 +325,7 @@ msgstr ""
 msgid "Please select a provider and enter the API token"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:281
+#: includes/Admin/AdminManager.php:282
 msgid "Please select a provider and provide the token"
 msgstr ""
 
@@ -331,6 +347,10 @@ msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:95
 msgid "Prompt Guidelines"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:245
+msgid "Provider changed. You may need to re-enter your API token and test the connection."
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:191
@@ -362,20 +382,16 @@ msgstr ""
 msgid "Select provider..."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:241
-msgid "Select your AI provider"
-msgstr ""
-
 #: includes/Admin/Settings/SettingsManager.php:194
 msgid "Select your AI provider and enter your API credentials."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:242
+#: includes/Admin/Settings/SettingsManager.php:241
 msgid "Select your preferred AI provider"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:114
-#: includes/Admin/AdminManager.php:332
+#: includes/Admin/AdminManager.php:333
 msgid "Settings"
 msgstr ""
 
@@ -404,7 +420,7 @@ msgstr ""
 msgid "System Message"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:376
+#: includes/Admin/Settings/SettingsManager.php:414
 msgid "System message that defines AI behavior. Leave empty to use default."
 msgstr ""
 
@@ -437,6 +453,10 @@ msgstr ""
 msgid "Thresholds must be between 0.0 and 1.0"
 msgstr ""
 
+#: includes/Admin/Settings/SettingsManager.php:260
+msgid "Token Saved & Encrypted"
+msgstr ""
+
 #: includes/Admin/AdminManager.php:244
 msgid "Token validated. Change provider to modify."
 msgstr ""
@@ -462,15 +482,15 @@ msgstr ""
 msgid "Use clear, specific instructions for the AI"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:338
+#: includes/Admin/Settings/SettingsManager.php:376
 msgid "When enabled, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:369
+#: includes/Admin/Settings/SettingsManager.php:407
 msgid "You are an expert comment moderator. Analyze comments and respond only with valid JSON."
 msgstr ""
 
-#: includes/Utils/Config.php:169
+#: includes/Utils/Config.php:199
 msgid "You are an expert comment moderator. Analyze the comment content and determine if it should be approved, marked as spam, or rejected."
 msgstr ""
 

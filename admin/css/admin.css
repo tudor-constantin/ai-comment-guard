@@ -760,3 +760,79 @@ input[type="checkbox"] {
         font-size: 11px !important;
     }
 }
+
+/* Token Field Styles */
+.ai-comment-guard-token-saved {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.token-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.token-mask {
+    background: var(--background-light);
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    letter-spacing: 1px;
+    min-width: 200px;
+}
+
+.token-status.success {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.token-status.success::before {
+    content: "✓";
+}
+
+.ai-comment-guard-token-change {
+    margin-top: 10px;
+    padding: 15px;
+    background: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.provider-change-warning {
+    background: #fff3cd;
+    border: 1px solid var(--warning-color);
+    color: #856404;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    margin-top: 10px;
+}
+
+.provider-change-warning p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Responsive Token Fields */
+@media (max-width: 768px) {
+    .token-display {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .token-mask {
+        font-size: 12px;
+        padding: 6px 10px;
+        min-width: auto;
+        word-break: break-all;
+    }
+}

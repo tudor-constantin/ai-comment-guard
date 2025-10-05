@@ -27,14 +27,18 @@ class Config {
         'approval_threshold' => 0.3,
         'log_enabled' => false,
         'log_retention_days' => 30,
-        'custom_system_message' => '',
-        'custom_ai_prompt' => ''
+        'custom_system_message' => ''
     ];
     
     /**
      * @var array Cached settings
      */
     private $settings = null;
+    
+    /**
+     * @var string Encryption key for sensitive data
+     */
+    private $encryption_key = null;
     
     /**
      * Get a configuration value
@@ -49,10 +53,24 @@ class Config {
         }
         
         if (null === $key) {
-            return $this->settings;
+            // Return all settings, but decrypt sensitive fields for internal use
+            $settings = $this->settings;
+            foreach ($settings as $setting_key => $setting_value) {
+                if ($this->is_sensitive_field($setting_key) && !empty($setting_value)) {
+                    $settings[$setting_key] = $this->decrypt_data($setting_value);
+                }
+            }
+            return $settings;
         }
         
-        return isset($this->settings[$key]) ? $this->settings[$key] : ($default ?? $this->defaults[$key] ?? null);
+        $value = isset($this->settings[$key]) ? $this->settings[$key] : ($default ?? $this->defaults[$key] ?? null);
+        
+        // Decrypt sensitive data when requested
+        if ($this->is_sensitive_field($key) && !empty($value)) {
+            $value = $this->decrypt_data($value);
+        }
+        
+        return $value;
     }
     
     /**
@@ -65,6 +83,11 @@ class Config {
     public function set($key, $value) {
         if (null === $this->settings) {
             $this->load_settings();
+        }
+        
+        // Encrypt sensitive data before storing
+        if ($this->is_sensitive_field($key) && !empty($value)) {
+            $value = $this->encrypt_data($value);
         }
         
         $this->settings[$key] = $value;
@@ -80,6 +103,13 @@ class Config {
     public function update(array $settings) {
         if (null === $this->settings) {
             $this->load_settings();
+        }
+        
+        // Encrypt sensitive fields before merging
+        foreach ($settings as $key => $value) {
+            if ($this->is_sensitive_field($key) && !empty($value)) {
+                $settings[$key] = $this->encrypt_data($value);
+            }
         }
         
         $this->settings = array_merge($this->settings, $settings);
@@ -160,15 +190,129 @@ class Config {
     /**
      * Get AI prompt
      *
-     * @param string $type Type of prompt (system|user)
+     * @param string $type Type of prompt (system)
      * @return string
      */
-    public function get_prompt($type = 'user') {
+    public function get_prompt($type = 'system') {
         if ($type === 'system') {
             $custom = $this->get('custom_system_message', '');
             return !empty($custom) ? $custom : __('You are an expert comment moderator. Analyze the comment content and determine if it should be approved, marked as spam, or rejected.', 'ai-comment-guard');
         }
         
-        return $this->get('custom_ai_prompt', '');
+        return '';
+    }
+    
+    /**
+     * Get encryption key for sensitive data
+     *
+     * @return string
+     */
+    private function get_encryption_key() {
+        if (null === $this->encryption_key) {
+            // Use WordPress salts/keys for encryption
+            $this->encryption_key = wp_hash('aicog_encryption_key_' . SECURE_AUTH_KEY . AUTH_KEY);
+        }
+        return $this->encryption_key;
+    }
+    
+    /**
+     * Encrypt sensitive data
+     *
+     * @param string $data Data to encrypt
+     * @return string Encrypted data
+     */
+    private function encrypt_data($data) {
+        if (empty($data)) {
+            return $data;
+        }
+        
+        $key = $this->get_encryption_key();
+        $iv = openssl_random_pseudo_bytes(16);
+        $encrypted = openssl_encrypt($data, 'AES-256-CBC', $key, 0, $iv);
+        
+        // Combine IV and encrypted data, then base64 encode
+        return base64_encode($iv . $encrypted);
+    }
+    
+    /**
+     * Decrypt sensitive data
+     *
+     * @param string $encrypted_data Encrypted data
+     * @return string Decrypted data
+     */
+    private function decrypt_data($encrypted_data) {
+        if (empty($encrypted_data)) {
+            return $encrypted_data;
+        }
+        
+        // Check if data is already decrypted (for backward compatibility)
+        $decoded = base64_decode($encrypted_data, true);
+        if ($decoded === false) {
+            // Not base64 encoded, assume it's plain text (old format)
+            return $encrypted_data;
+        }
+        
+        $key = $this->get_encryption_key();
+        $iv = substr($decoded, 0, 16);
+        $encrypted = substr($decoded, 16);
+        
+        $decrypted = openssl_decrypt($encrypted, 'AES-256-CBC', $key, 0, $iv);
+        
+        // If decryption fails, return original data (backward compatibility)
+        return $decrypted !== false ? $decrypted : $encrypted_data;
+    }
+    
+    /**
+     * Check if a field contains sensitive data that should be encrypted
+     *
+     * @param string $key Field key
+     * @return bool
+     */
+    private function is_sensitive_field($key) {
+        $sensitive_fields = ['ai_provider_token'];
+        return in_array($key, $sensitive_fields, true);
+    }
+    
+    /**
+     * Get a masked version of sensitive data for display purposes
+     *
+     * @param string $key The configuration key
+     * @return string Masked value or empty string
+     */
+    public function get_masked($key) {
+        if (!$this->is_sensitive_field($key)) {
+            return $this->get($key);
+        }
+        
+        $value = $this->get($key);
+        if (empty($value)) {
+            return '';
+        }
+        
+        // Return a masked version - show first 4 and last 4 characters
+        $length = strlen($value);
+        if ($length <= 8) {
+            return str_repeat('•', $length);
+        }
+        
+        return substr($value, 0, 4) . str_repeat('•', $length - 8) . substr($value, -4);
+    }
+    
+    /**
+     * Check if a sensitive field has a value (without revealing it)
+     *
+     * @param string $key The configuration key
+     * @return bool
+     */
+    public function has_sensitive_value($key) {
+        if (!$this->is_sensitive_field($key)) {
+            return !empty($this->get($key));
+        }
+        
+        if (null === $this->settings) {
+            $this->load_settings();
+        }
+        
+        return !empty($this->settings[$key]);
     }
 }

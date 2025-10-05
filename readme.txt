@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,15 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 == Changelog ==
 
+= 1.2.0 =
+* **Security enhancement**: Added AES-256-CBC encryption for API tokens in database
+* **Improved UI**: Enhanced token field interface with masked display and secure editing
+* **New feature**: API tokens are now encrypted automatically when saved
+* **Better UX**: Token field shows masked version (e.g., sk-12••••••••••••••••ef) instead of full token
+* **Secure interface**: No token exposure in browser inspector or page source
+* **Backward compatibility**: Existing unencrypted tokens work seamlessly and migrate automatically
+* **Visual feedback**: Clear indicators for encrypted token status
+
 = 1.1.1 =
 * Fixed system message integration in AI prompt
 * Made prompt strings translatable 
@@ -198,6 +207,9 @@ Currently, you can configure one provider at a time, but you can switch between 
 * Automatic cleanup and maintenance features
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+**Security update**: API tokens are now encrypted in the database! Existing tokens will be automatically encrypted on first save. Enhanced admin interface with secure token management. Recommended update for all users.
 
 = 1.1.1 =
 This update fixes system message integration and improves internationalization support. Update recommended for all users.

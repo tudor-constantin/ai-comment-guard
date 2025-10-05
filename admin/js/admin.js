@@ -42,6 +42,7 @@
          */
         init: function() {
             this.bindEvents();
+            this.initTokenFieldEvents();
             this.storeOriginalValues();
             this.initializeTooltips();
             this.checkInitialState();
@@ -61,20 +62,26 @@
          */
         checkInitialState: function() {
             const provider = $(this.config.selectors.providerField).val();
-            const token = $(this.config.selectors.tokenField).val();
+            const hasTokenSaved = $('.ai-comment-guard-token-saved').length > 0;
             
             // Disable token field if no provider selected or if it's the default "Select provider..." option
             if (!provider || provider === '') {
                 $(this.config.selectors.tokenField).prop('disabled', true);
             }
             
-            // If we have saved values, assume they were validated and lock the token
-            if (provider && token) {
+            // If we have saved values, assume they were validated
+            if (provider && hasTokenSaved) {
                 this.config.state.connectionTested = true;
                 this.config.state.validatedProvider = provider;
-                this.lockTokenField();
                 $('#test-connection-section').hide(); // Hide since already validated
                 $(this.config.selectors.saveWarning).hide();
+            } else if (provider && !hasTokenSaved) {
+                // Provider selected but no token saved - show test section when token is entered
+                const token = $(this.config.selectors.tokenField).val();
+                if (token) {
+                    $('#test-connection-section').show();
+                    $(this.config.selectors.saveWarning).show();
+                }
             } else {
                 $('#test-connection-section').hide();
             }
@@ -124,7 +131,11 @@
             const $button = $(this.config.selectors.testButton);
             const $result = $(this.config.selectors.testResult);
             const provider = $(this.config.selectors.providerField).val();
-            const token = $(this.config.selectors.tokenField).val();
+            
+            // Get token from the appropriate field (change section or main field)
+            let token = $('#token-change-section').is(':visible') 
+                ? $('#token-change-section input').val()
+                : $(this.config.selectors.tokenField).val();
             
             // Validate inputs
             if (!provider || !token) {
@@ -234,6 +245,7 @@
          */
         handleProviderChange: function() {
             const provider = $(this.config.selectors.providerField).val();
+            const hasTokenSaved = $('.ai-comment-guard-token-saved').length > 0;
             
             // Enable/disable token field based on provider selection
             if (provider && provider !== '') {
@@ -245,13 +257,16 @@
             
             // Check if provider changed from validated one
             if (this.config.state.validatedProvider && provider !== this.config.state.validatedProvider) {
-                // Provider changed - unlock token, clear it, and require re-validation
-                this.unlockTokenField();
-                $(this.config.selectors.tokenField).val(''); // Clear the token field
+                // Provider changed - require re-validation
                 this.config.state.connectionTested = false;
                 this.config.state.validatedProvider = null;
                 $(this.config.selectors.testResult).hide();
-                $('#test-connection-section').show(); // Show test section for new provider
+                
+                // If token is saved, show warning that token needs to be re-entered
+                if (hasTokenSaved) {
+                    this.showProviderChangeWarning();
+                }
+                
                 $(this.config.selectors.saveWarning).hide();
             }
         },
@@ -262,14 +277,15 @@
         handleTokenChange: function() {
             const provider = $(this.config.selectors.providerField).val();
             const token = $(this.config.selectors.tokenField).val();
+            const isInChangeMode = $('#token-change-section').is(':visible');
             
             // Show/hide test connection section based on provider and token
-            if (provider && token) {
+            if (provider && token && (isInChangeMode || !$('.ai-comment-guard-token-saved').length)) {
                 $('#test-connection-section').show();
                 if (!this.config.state.connectionTested) {
                     $(this.config.selectors.saveWarning).show();
                 }
-            } else {
+            } else if (!token) {
                 $('#test-connection-section').hide();
                 $(this.config.selectors.saveWarning).hide();
             }
@@ -447,6 +463,68 @@
             $tokenField.next('.token-lock-indicator').remove();
             
             this.config.state.tokenLocked = false;
+        },
+        
+        /**
+         * Show warning when provider changes and token is saved
+         */
+        showProviderChangeWarning: function() {
+            if (!$('.provider-change-warning').length) {
+                $('.ai-comment-guard-token-saved').after(
+                    '<div class="notice notice-warning provider-change-warning" style="margin-top: 10px;">' +
+                    '<p><strong>' + aicog_ajax.strings.provider_changed_warning + '</strong></p>' +
+                    '</div>'
+                );
+            }
+        },
+        
+        /**
+         * Handle token field events for the new interface
+         */
+        initTokenFieldEvents: function() {
+            const self = this;
+            
+            // Handle change token button
+            $(document).on('click', '#change-token-btn', function(e) {
+                e.preventDefault();
+                $('.ai-comment-guard-token-saved .token-display, .token-actions').hide();
+                $('#token-change-section').show();
+                $('#token-change-section input').focus();
+                $('.provider-change-warning').remove();
+                $('#test-connection-section').show();
+                $(self.config.selectors.saveWarning).show();
+                self.config.state.connectionTested = false;
+            });
+            
+            // Handle cancel change button
+            $(document).on('click', '#cancel-change-btn', function(e) {
+                e.preventDefault();
+                $('#token-change-section').hide();
+                $('#token-change-section input').val('');
+                $('.ai-comment-guard-token-saved .token-display, .token-actions').show();
+                $('#test-connection-section').hide();
+                $(self.config.selectors.saveWarning).hide();
+                $('.provider-change-warning').remove();
+                
+                // Reset connection tested state if provider hasn't changed
+                const provider = $(self.config.selectors.providerField).val();
+                if (provider === self.config.state.validatedProvider) {
+                    self.config.state.connectionTested = true;
+                }
+            });
+            
+            // Handle input in token change field
+            $(document).on('input keyup change', '#token-change-section input', function() {
+                const token = $(this).val();
+                if (token && token.length > 0) {
+                    $('#test-connection-section').show();
+                    $(self.config.selectors.saveWarning).show();
+                } else {
+                    $('#test-connection-section').hide();
+                    $(self.config.selectors.saveWarning).hide();
+                }
+                self.config.state.connectionTested = false;
+            });
         }
     };
     
