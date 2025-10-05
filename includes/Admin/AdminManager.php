@@ -242,7 +242,7 @@ class AdminManager {
             'unsaved_changes_notice' => __('Unsaved changes: Remember to save your settings.', 'ai-comment-guard'),
             'token_validated' => __('🔒 Validated', 'ai-comment-guard'),
             'token_validated_tooltip' => __('Token validated. Change provider to modify.', 'ai-comment-guard'),
-            'provider_changed_warning' => __('Provider changed. You may need to re-enter your API token and test the connection.', 'ai-comment-guard')
+            'provider_changed_warning' => __('Provider changed. Please enter your new API token and test the connection.', 'ai-comment-guard')
         ];
     }
     

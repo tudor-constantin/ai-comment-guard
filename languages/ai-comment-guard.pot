@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-10-05 00:04+0000
+# POT-Creation-Date: 2025-10-05 15:14+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.2.0\n"
+"Project-Id-Version: AI Comment Guard 1.2.1\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-10-05 00:04+0000\n"
+"POT-Creation-Date: 2025-10-05 15:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,7 +350,7 @@ msgid "Prompt Guidelines"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:245
-msgid "Provider changed. You may need to re-enter your API token and test the connection."
+msgid "Provider changed. Please enter your new API token and test the connection."
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:191
@@ -490,7 +490,7 @@ msgstr ""
 msgid "You are an expert comment moderator. Analyze comments and respond only with valid JSON."
 msgstr ""
 
-#: includes/Utils/Config.php:199
+#: includes/Utils/Config.php:234
 msgid "You are an expert comment moderator. Analyze the comment content and determine if it should be approved, marked as spam, or rejected."
 msgstr ""
 

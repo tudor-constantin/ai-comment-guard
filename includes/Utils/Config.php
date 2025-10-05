@@ -41,6 +41,16 @@ class Config {
     private $encryption_key = null;
     
     /**
+     * @var string Cache key for transients
+     */
+    private $cache_key = 'aicog_config_cache';
+    
+    /**
+     * @var int Cache expiration time in seconds (1 hour)
+     */
+    private $cache_expiration = 3600;
+    
+    /**
      * Get a configuration value
      *
      * @param string $key The configuration key
@@ -124,24 +134,49 @@ class Config {
     public function set_defaults() {
         add_option('aicog_settings', $this->defaults);
         $this->settings = $this->defaults;
+        
+        // Update cache with defaults
+        set_transient($this->cache_key, $this->settings, $this->cache_expiration);
     }
     
     /**
-     * Load settings from database
+     * Load settings from database with caching
      *
      * @return void
      */
     private function load_settings() {
+        // Try to get from cache first
+        $cached_settings = get_transient($this->cache_key);
+        
+        if ($cached_settings !== false) {
+            $this->settings = $cached_settings;
+            return;
+        }
+        
+        // Load from database if not cached
         $this->settings = get_option('aicog_settings', $this->defaults);
+        
+        // Cache the settings
+        set_transient($this->cache_key, $this->settings, $this->cache_expiration);
     }
     
     /**
-     * Save settings to database
+     * Save settings to database and update cache
      *
      * @return bool
      */
     private function save_settings() {
-        return update_option('aicog_settings', $this->settings);
+        $result = update_option('aicog_settings', $this->settings);
+        
+        if ($result) {
+            // Update cache with new settings
+            set_transient($this->cache_key, $this->settings, $this->cache_expiration);
+        } else {
+            // If save failed, invalidate cache to force reload from DB
+            $this->clear_cache();
+        }
+        
+        return $result;
     }
     
     /**
@@ -314,5 +349,24 @@ class Config {
         }
         
         return !empty($this->settings[$key]);
+    }
+    
+    /**
+     * Clear configuration cache
+     *
+     * @return void
+     */
+    public function clear_cache() {
+        delete_transient($this->cache_key);
+        $this->settings = null; // Force reload from database
+    }
+    
+    /**
+     * Warm up the cache by loading settings
+     *
+     * @return void
+     */
+    public function warm_cache() {
+        $this->load_settings();
     }
 }

@@ -122,6 +122,12 @@ class Plugin {
         // Set default options
         $this->config->set_defaults();
         
+        // Clear configuration cache to ensure fresh start
+        $this->config->clear_cache();
+        
+        // Clear database cache
+        $this->database->clear_log_cache();
+        
         // Clear any scheduled hooks
         wp_clear_scheduled_hook('aicog_cleanup');
         
@@ -140,6 +146,10 @@ class Plugin {
     public function deactivate() {
         // Clear scheduled hooks
         wp_clear_scheduled_hook('aicog_cleanup');
+        
+        // Clear caches
+        $this->config->clear_cache();
+        $this->database->clear_log_cache();
         
         // Flush rewrite rules
         flush_rewrite_rules();
@@ -170,6 +180,7 @@ class Plugin {
         
         // Delete transients
         delete_transient('aicog_connection_tested');
+        delete_transient('aicog_config_cache');
     }
     
     /**

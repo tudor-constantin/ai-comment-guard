@@ -55,6 +55,12 @@
             const c = this.config;
             c.state.originalProvider = $(c.selectors.providerField).val();
             c.state.originalToken = $(c.selectors.tokenField).val();
+            
+            // If we have a saved token, store the provider as validated
+            const hasTokenSaved = $('.ai-comment-guard-token-saved').length > 0;
+            if (c.state.originalProvider && hasTokenSaved) {
+                c.state.validatedProvider = c.state.originalProvider;
+            }
         },
         
         /**
@@ -69,12 +75,18 @@
                 $(this.config.selectors.tokenField).prop('disabled', true);
             }
             
-            // If we have saved values, assume they were validated
+            // If we have both provider and saved token, consider it validated
             if (provider && hasTokenSaved) {
                 this.config.state.connectionTested = true;
                 this.config.state.validatedProvider = provider;
                 $('#test-connection-section').hide(); // Hide since already validated
                 $(this.config.selectors.saveWarning).hide();
+                $(this.config.selectors.connectionWarning).hide();
+                
+                // Store original values as validated
+                this.config.state.originalProvider = provider;
+                // Token value is masked, so we mark it as existing
+                this.config.state.originalToken = '***SAVED***';
             } else if (provider && !hasTokenSaved) {
                 // Provider selected but no token saved - show test section when token is entered
                 const token = $(this.config.selectors.tokenField).val();
@@ -204,16 +216,22 @@
         validateForm: function(e) {
             const provider = $(this.config.selectors.providerField).val();
             const token = $(this.config.selectors.tokenField).val();
+            const hasTokenChangeInput = $('#token-change-section').is(':visible');
+            const changeToken = hasTokenChangeInput ? $('#token-change-section input').val() : '';
             
-            // Check if provider changed or connection not tested
-            if (provider && token && !this.config.state.connectionTested) {
+            // Only require connection test if provider/token actually changed
+            const providerChanged = this.hasProviderChanged();
+            const tokenBeingChanged = hasTokenChangeInput && changeToken;
+            
+            // Check if we need connection validation
+            if (provider && (providerChanged || tokenBeingChanged) && !this.config.state.connectionTested) {
                 this.showWarning('connection');
                 e.preventDefault();
                 return false;
             }
             
-            // Require both fields if one is set
-            if ((provider && !token) || (!provider && token)) {
+            // Require both fields if one is set and they're being changed
+            if (providerChanged && ((provider && !token) || (!provider && token))) {
                 this.showWarning('connection');
                 e.preventDefault();
                 return false;
@@ -234,10 +252,22 @@
          */
         hasProviderChanged: function() {
             const provider = $(this.config.selectors.providerField).val();
-            const token = $(this.config.selectors.tokenField).val();
+            const hasTokenSaved = $('.ai-comment-guard-token-saved').length > 0;
+            const hasTokenChangeInput = $('#token-change-section').is(':visible');
+            const changeToken = hasTokenChangeInput ? $('#token-change-section input').val() : '';
             
-            return provider !== this.config.state.originalProvider || 
-                   token !== this.config.state.originalToken;
+            // Check if provider changed
+            const providerChanged = provider !== this.config.state.originalProvider;
+            
+            // Check if token is being changed
+            const tokenChanged = hasTokenChangeInput && changeToken && changeToken.length > 0;
+            
+            // If we have a saved token and no change is being made, consider unchanged
+            if (hasTokenSaved && !hasTokenChangeInput && !providerChanged) {
+                return false;
+            }
+            
+            return providerChanged || tokenChanged;
         },
         
         /**
@@ -262,8 +292,9 @@
                 this.config.state.validatedProvider = null;
                 $(this.config.selectors.testResult).hide();
                 
-                // If token is saved, show warning that token needs to be re-entered
+                // If token is saved, clear it and show input field for new token
                 if (hasTokenSaved) {
+                    this.clearTokenAndShowInput();
                     this.showProviderChangeWarning();
                 }
                 
@@ -280,7 +311,7 @@
             const isInChangeMode = $('#token-change-section').is(':visible');
             
             // Show/hide test connection section based on provider and token
-            if (provider && token && (isInChangeMode || !$('.ai-comment-guard-token-saved').length)) {
+            if (provider && token && (isInChangeMode || !$('.ai-comment-guard-token-saved').is(':visible'))) {
                 $('#test-connection-section').show();
                 if (!this.config.state.connectionTested) {
                     $(this.config.selectors.saveWarning).show();
@@ -476,6 +507,24 @@
                     '</div>'
                 );
             }
+        },
+        
+        /**
+         * Clear saved token display and show input field for new token
+         */
+        clearTokenAndShowInput: function() {
+            // Hide the saved token display
+            $('.ai-comment-guard-token-saved .token-display, .ai-comment-guard-token-saved .token-actions').hide();
+            
+            // Show the token change section (which already exists in the HTML)
+            $('#token-change-section').show();
+            
+            // Focus on the input field
+            $('#token-change-section input').focus();
+            
+            // Reset connection state
+            this.config.state.connectionTested = false;
+            this.config.state.validatedProvider = null;
         },
         
         /**

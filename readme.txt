@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,15 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 == Changelog ==
 
+= 1.2.1 =
+* Performance optimization: Added database indexing for comment_hash column to improve duplicate checking
+* Improved caching: Implemented hybrid caching system with in-memory and database optimizations
+* Configuration caching: Added WordPress transients caching for plugin settings (1-hour TTL)
+* Enhanced database queries: Optimized log_exists() method with indexed searches
+* Memory management: Implemented smart cache invalidation on data changes
+* Better performance: Reduced database load through efficient caching mechanisms
+* Code quality: Improved cache management with proper cleanup methods
+
 = 1.2.0 =
 * **Security enhancement**: Added AES-256-CBC encryption for API tokens in database
 * **Improved UI**: Enhanced token field interface with masked display and secure editing
@@ -207,6 +216,9 @@ Currently, you can configure one provider at a time, but you can switch between 
 * Automatic cleanup and maintenance features
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Performance update: Significant performance improvements with database indexing and caching optimizations! Faster duplicate checking and reduced database load.
 
 = 1.2.0 =
 **Security update**: API tokens are now encrypted in the database! Existing tokens will be automatically encrypted on first save. Enhanced admin interface with secure token management. Recommended update for all users.

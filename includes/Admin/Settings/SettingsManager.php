@@ -477,8 +477,16 @@ class SettingsManager {
             }
         }
         
-        // Clear connection test flag
-        delete_transient('aicog_connection_tested');
+        // Only clear connection test flag if provider or token changed
+        $provider_changed = isset($sanitized['ai_provider']) && $sanitized['ai_provider'] !== $current['ai_provider'];
+        $token_changed = isset($sanitized['ai_provider_token']) && !empty($sanitized['ai_provider_token']);
+        
+        if ($provider_changed || $token_changed) {
+            delete_transient('aicog_connection_tested');
+        }
+        
+        // Clear configuration cache since settings are being updated
+        $this->config->clear_cache();
         
         return array_merge($current, $sanitized);
     }

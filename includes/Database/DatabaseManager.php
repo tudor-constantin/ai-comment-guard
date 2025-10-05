@@ -51,6 +51,7 @@ class DatabaseManager {
             comment_author_email varchar(100),
             comment_author_url varchar(200),
             comment_author_ip varchar(45),
+            comment_hash varchar(32),
             ai_provider varchar(50),
             ai_response text,
             action varchar(20) NOT NULL,
@@ -60,6 +61,7 @@ class DatabaseManager {
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY comment_id (comment_id),
+            KEY comment_hash (comment_hash),
             KEY action (action),
             KEY created_at (created_at)
         ) $charset_collate;";
@@ -98,6 +100,7 @@ class DatabaseManager {
             'comment_author_email' => '',
             'comment_author_url' => '',
             'comment_author_ip' => '',
+            'comment_hash' => '',
             'ai_provider' => '',
             'ai_response' => '',
             'action' => '',
@@ -109,15 +112,25 @@ class DatabaseManager {
         
         $data = wp_parse_args($data, $defaults);
         
+        // Generate hash if not provided
+        if (empty($data['comment_hash']) && !empty($data['comment_content']) && !empty($data['comment_author'])) {
+            $data['comment_hash'] = md5($data['comment_content'] . $data['comment_author']);
+        }
+        
         $result = $this->wpdb->insert(
             $this->log_table,
             $data,
             [
                 '%d', '%s', '%s', '%s', '%s', '%s',
-                '%s', '%s', '%s', '%f', '%f', 
+                '%s', '%s', '%s', '%s', '%f', '%f', 
                 '%s', '%s'
             ]
         );
+        
+        // Clear cache when new log is inserted
+        if ($result) {
+            $this->clear_log_cache();
+        }
         
         return $result ? $this->wpdb->insert_id : false;
     }
@@ -299,6 +312,8 @@ class DatabaseManager {
      * @return int Number of deleted rows
      */
     public function clear_logs($older_than_days = 0) {
+        $deleted_rows = 0;
+        
         if ($older_than_days > 0) {
             $date_limit = gmdate('Y-m-d H:i:s', strtotime("-{$older_than_days} days"));
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -307,13 +322,20 @@ class DatabaseManager {
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
             $prepared_delete = $this->wpdb->prepare($delete_sql, $date_limit);
             // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            return $this->wpdb->query($prepared_delete);
+            $deleted_rows = $this->wpdb->query($prepared_delete);
+        } else {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $truncate_sql = "TRUNCATE TABLE " . $this->log_table;
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $deleted_rows = $this->wpdb->query($truncate_sql);
         }
         
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $truncate_sql = "TRUNCATE TABLE " . $this->log_table;
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        return $this->wpdb->query($truncate_sql);
+        // Clear cache when logs are deleted
+        if ($deleted_rows > 0) {
+            $this->clear_log_cache();
+        }
+        
+        return $deleted_rows;
     }
     
     /**
@@ -323,13 +345,55 @@ class DatabaseManager {
      * @return bool
      */
     public function log_exists($comment_hash) {
-        static $logged = [];
+        static $cache = [];
         
-        if (isset($logged[$comment_hash])) {
-            return true;
+        // Handle cache reset
+        if ($comment_hash === '__RESET_CACHE__') {
+            $cache = [];
+            return false;
         }
         
-        $logged[$comment_hash] = true;
-        return false;
+        // Check in-memory cache first
+        if (isset($cache[$comment_hash])) {
+            return $cache[$comment_hash];
+        }
+        
+        // Check database using optimized query with indexed hash column
+        $exists_sql = "SELECT COUNT(*) FROM {$this->log_table} WHERE comment_hash = %s LIMIT 1";
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $prepared_exists = $this->wpdb->prepare($exists_sql, $comment_hash);
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $exists = (int) $this->wpdb->get_var($prepared_exists);
+        
+        // Cache the result (both positive and negative)
+        $cache[$comment_hash] = $exists > 0;
+        
+        return $cache[$comment_hash];
+    }
+    
+    /**
+     * Clear the log exists cache
+     *
+     * @return void
+     */
+    public function clear_log_cache() {
+        // Reset the static cache array in log_exists method
+        $this->reset_log_cache();
+    }
+    
+    /**
+     * Reset the static cache array
+     *
+     * @return void
+     */
+    private function reset_log_cache() {
+        // Call log_exists with a special flag to reset cache
+        static $reset_cache = false;
+        $reset_cache = true;
+        
+        // This will trigger the cache reset in log_exists
+        $this->log_exists('__RESET_CACHE__');
+        
+        $reset_cache = false;
     }
 }
