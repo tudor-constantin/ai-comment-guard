@@ -49,6 +49,14 @@ class CommentProcessor {
     public function init() {
         // Hook into comment processing
         add_filter('pre_comment_approved', [$this, 'process_comment'], 10, 2);
+        
+        // Always hook into notification filters - they will check the setting dynamically
+        add_filter('comment_notification_notify_author', [$this, 'maybe_disable_notification'], 10, 2);
+        add_filter('comment_moderation_notify_author', [$this, 'maybe_disable_moderation_notification'], 10, 2);
+        
+        // Also hook into the broader notification filters
+        add_filter('notify_post_author', [$this, 'maybe_disable_post_author_notification'], 10, 2);
+        add_filter('notify_moderator', [$this, 'maybe_disable_moderator_notification'], 10, 2);
     }
     
     /**
@@ -81,6 +89,9 @@ class CommentProcessor {
             if ($analysis) {
                 // Determine action based on analysis
                 $action = $this->determine_action($analysis);
+                
+                // Mark comment as AI processed for notification filtering
+                $this->mark_comment_as_ai_processed($commentdata);
                 
                 // Log the analysis if enabled
                 if ($this->config->is_enabled('logging')) {
@@ -130,7 +141,7 @@ class CommentProcessor {
      * @return string Action to take
      */
     private function determine_action($analysis) {
-        $result = $analysis['analysis'];
+        $result = $analysis['status'];
         $confidence = $analysis['confidence'];
         
         $spam_threshold = $this->config->get_threshold('spam');
@@ -196,13 +207,108 @@ class CommentProcessor {
             'comment_author_ip' => $commentdata['comment_author_IP'] ?? (isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : ''),
             'ai_provider' => $analysis['provider'] ?? '',
             'ai_response' => json_encode([
-                'analysis' => $analysis['analysis'],
+                'analysis' => $analysis['status'],
                 'confidence' => $analysis['confidence'],
-                'reason' => $analysis['reason']
+                'reason' => $analysis['reasoning']
             ]),
             'action' => $action,
             'confidence' => $analysis['confidence'],
             'processing_time' => $analysis['processing_time'] ?? 0
         ]);
+    }
+    
+    /**
+     * Mark comment as AI processed for notification filtering
+     *
+     * @param array $commentdata Comment data
+     * @return void
+     */
+    private function mark_comment_as_ai_processed($commentdata) {
+        // Create a unique identifier for this comment
+        $comment_hash = md5($commentdata['comment_content'] . $commentdata['comment_author'] . ($commentdata['comment_author_email'] ?? ''));
+        
+        // Store in a transient that expires after 5 minutes (should be enough for processing)
+        set_transient('aicog_ai_processed_' . $comment_hash, true, 300);
+    }
+    
+    /**
+     * Check if comment was processed by AI
+     *
+     * @param array $commentdata Comment data
+     * @return bool
+     */
+    private function is_comment_ai_processed($commentdata) {
+        $comment_hash = md5($commentdata['comment_content'] . $commentdata['comment_author'] . ($commentdata['comment_author_email'] ?? ''));
+        return get_transient('aicog_ai_processed_' . $comment_hash) !== false;
+    }
+    
+    /**
+     * Maybe disable notification for AI processed comments
+     *
+     * @param bool $notify Whether to notify
+     * @param int $comment_id Comment ID
+     * @return bool
+     */
+    public function maybe_disable_notification($notify, $comment_id) {
+        if (!$notify) {
+            return $notify;
+        }
+        
+        // Check if email notifications are disabled in settings
+        if (!$this->config->get('disable_email_notifications', false)) {
+            return $notify;
+        }
+        
+        $comment = get_comment($comment_id);
+        if (!$comment) {
+            return $notify;
+        }
+        
+        // Create comment data array to check if it was AI processed
+        $commentdata = [
+            'comment_content' => $comment->comment_content,
+            'comment_author' => $comment->comment_author,
+            'comment_author_email' => $comment->comment_author_email
+        ];
+        
+        // If this comment was processed by AI, don't send notification
+        if ($this->is_comment_ai_processed($commentdata)) {
+            return false;
+        }
+        
+        return $notify;
+    }
+    
+    /**
+     * Maybe disable moderation notification for AI processed comments
+     *
+     * @param bool $notify Whether to notify
+     * @param int $comment_id Comment ID
+     * @return bool
+     */
+    public function maybe_disable_moderation_notification($notify, $comment_id) {
+        return $this->maybe_disable_notification($notify, $comment_id);
+    }
+    
+    /**
+     * Maybe disable post author notification for AI processed comments
+     *
+     * @param bool $notify Whether to notify
+     * @param int $comment_id Comment ID
+     * @return bool
+     */
+    public function maybe_disable_post_author_notification($notify, $comment_id) {
+        return $this->maybe_disable_notification($notify, $comment_id);
+    }
+    
+    /**
+     * Maybe disable moderator notification for AI processed comments
+     *
+     * @param bool $notify Whether to notify
+     * @param int $comment_id Comment ID
+     * @return bool
+     */
+    public function maybe_disable_moderator_notification($notify, $comment_id) {
+        return $this->maybe_disable_notification($notify, $comment_id);
     }
 }

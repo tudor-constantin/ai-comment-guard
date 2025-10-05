@@ -821,6 +821,154 @@ input[type="checkbox"] {
     font-size: 13px;
 }
 
+/* Preview Tab Styles */
+.ai-comment-guard-analysis-result {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.ai-comment-guard-analysis-result .result-status {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+}
+
+.ai-comment-guard-analysis-result .result-status.result-approved {
+    color: white;
+    background: var(--success-color);
+}
+
+.ai-comment-guard-analysis-result .result-status.result-rejected {
+    color: white;
+    background: var(--error-color);
+}
+
+.ai-comment-guard-analysis-result .result-status.result-spam {
+    color: white;
+    background: #dc3232;
+}
+
+.ai-comment-guard-analysis-result .result-status.result-pending {
+    color: var(--text-dark);
+    background: var(--warning-color);
+}
+
+.ai-comment-guard-analysis-result .result-status.error {
+    color: white;
+    background: var(--error-color);
+}
+
+.ai-comment-guard-analysis-result .result-confidence {
+    background: var(--background-light);
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.ai-comment-guard-analysis-result .result-reasoning {
+    background: #f8f9ff;
+    padding: 15px;
+    border-left: 4px solid var(--primary-color);
+    margin-top: 15px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.ai-comment-guard-analysis-result .result-reasoning p {
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+.ai-comment-guard-analysis-result .result-prompt {
+    background: #f8f9ff;
+    padding: 15px;
+    border-left: 4px solid var(--primary-color);
+    margin-top: 15px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.ai-comment-guard-analysis-result .result-prompt details {
+    margin-top: 10px;
+}
+
+.ai-comment-guard-analysis-result .result-prompt summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 5px 0;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .prompt-sections {
+    margin-top: 10px;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .system-message-section,
+.ai-comment-guard-analysis-result .result-prompt .user-prompt-section {
+    margin-bottom: 15px;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .system-message-section:last-child,
+.ai-comment-guard-analysis-result .result-prompt .user-prompt-section:last-child {
+    margin-bottom: 0;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .system-message-section h4,
+.ai-comment-guard-analysis-result .result-prompt .user-prompt-section h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .system-message-section h4 {
+    color: #d63638;
+}
+
+.ai-comment-guard-analysis-result .result-prompt .user-prompt-section h4 {
+    color: #135e96;
+}
+
+.ai-comment-guard-analysis-result .result-prompt pre {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text-dark);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ai-comment-guard-preview-placeholder {
+    margin-top: 20px;
+}
+
+.ai-comment-guard-preview-placeholder h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.ai-comment-guard-preview-placeholder ul {
+    padding-left: 20px;
+}
+
+.ai-comment-guard-preview-placeholder li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
 /* Responsive Token Fields */
 @media (max-width: 768px) {
     .token-display {

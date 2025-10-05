@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-10-05 15:14+0000
+# POT-Creation-Date: 2025-10-05 20:46+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.2.1\n"
+"Project-Id-Version: AI Comment Guard 1.2.2\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-10-05 15:14+0000\n"
+"POT-Creation-Date: 2025-10-05 20:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,15 +38,15 @@ msgstr[1] ""
 msgid "&laquo; Previous"
 msgstr ""
 
-#: includes/AI/AIManager.php:118
+#: includes/AI/AIManager.php:120
 msgid "- APPROVED: Constructive comments, relevant, appropriate"
 msgstr ""
 
-#: includes/AI/AIManager.php:117
+#: includes/AI/AIManager.php:119
 msgid "- REJECTED: Offensive comments, inappropriate content, off-topic"
 msgstr ""
 
-#: includes/AI/AIManager.php:116
+#: includes/AI/AIManager.php:118
 msgid "- SPAM: Promotional comments, suspicious links, nonsensical text, repetitive content"
 msgstr ""
 
@@ -55,11 +55,11 @@ msgstr ""
 msgid "AI Analysis"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:95
+#: includes/Admin/AdminManager.php:102
 msgid "AI Comment Guard"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:94
+#: includes/Admin/AdminManager.php:101
 msgid "AI Comment Guard Settings"
 msgstr ""
 
@@ -79,7 +79,19 @@ msgstr ""
 msgid "AI Provider Configured"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:159
+#: includes/Admin/Pages/PreviewPage.php:131
+msgid "AI Provider Not Configured"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:269
+msgid "AI Reasoning"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:178
+msgid "AI provider is not configured"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:170
 msgid "AI-Powered Comment Management"
 msgstr ""
 
@@ -95,11 +107,36 @@ msgstr ""
 msgid "All Actions"
 msgstr ""
 
-#: includes/AI/AIManager.php:112
+#: includes/Admin/AdminManager.php:261
+msgid "Analysis Error"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:262
+msgid "Analysis Results"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:223
+msgid "Analysis error: %s"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:260
+msgid "Analysis failed:"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:259
+#: includes/Admin/Pages/PreviewPage.php:109
+msgid "Analyze Comment"
+msgstr ""
+
+#: includes/AI/AIManager.php:114
 msgid "Analyze the following comment and determine if it should be approved, rejected, or marked as spam."
 msgstr ""
 
-#: includes/AI/AIManager.php:228
+#: includes/Admin/AdminManager.php:258
+msgid "Analyzing..."
+msgstr ""
+
+#: includes/AI/AIManager.php:230
 msgid "Anthropic (Claude)"
 msgstr ""
 
@@ -107,12 +144,13 @@ msgstr ""
 msgid "Approval Threshold"
 msgstr ""
 
+#: includes/Admin/AdminManager.php:264
 #: includes/Admin/Pages/LogsPage.php:185
 #: includes/Admin/Pages/LogsPage.php:367
 msgid "Approved"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:236
+#: includes/Admin/AdminManager.php:247
 #: includes/Admin/Pages/LogsPage.php:219
 msgid "Are you sure you want to delete all logs?"
 msgstr ""
@@ -121,11 +159,19 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
+#: includes/Admin/Pages/PreviewPage.php:78
+msgid "Author Email"
+msgstr ""
+
 #: includes/Admin/Pages/LogsPage.php:283
 msgid "Author Info"
 msgstr ""
 
-#: includes/AI/AIManager.php:120
+#: includes/Admin/Pages/PreviewPage.php:64
+msgid "Author Name"
+msgstr ""
+
+#: includes/AI/AIManager.php:122
 msgid "Author:"
 msgstr ""
 
@@ -133,7 +179,7 @@ msgstr ""
 msgid "Auto Process Comments"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:315
+#: includes/Admin/Settings/SettingsManager.php:323
 msgid "Automatically process new comments with AI analysis"
 msgstr ""
 
@@ -145,11 +191,11 @@ msgstr ""
 msgid "Avg: %s%%"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:278
+#: includes/Admin/Settings/SettingsManager.php:286
 msgid "Cancel"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:265
+#: includes/Admin/Settings/SettingsManager.php:273
 msgid "Change Token"
 msgstr ""
 
@@ -162,27 +208,48 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+#: includes/Admin/Pages/PreviewPage.php:56
+msgid "Comment Analysis Test"
+msgstr ""
+
 #: includes/Admin/Pages/LogsPage.php:324
+#: includes/Admin/Pages/PreviewPage.php:92
 msgid "Comment Content"
 msgstr ""
 
-#: includes/AI/AIManager.php:119
+#: includes/Admin/Pages/PreviewPage.php:173
+msgid "Comment content is required"
+msgstr ""
+
+#: includes/AI/AIManager.php:121
 msgid "Comment to analyze:"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:354
+#: includes/Admin/AdminManager.php:270
+msgid "Complete Prompt Used"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:268
+msgid "Confidence Score"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:362
 msgid "Confidence threshold for automatic approval (0.0 - 1.0)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:335
+#: includes/Admin/Settings/SettingsManager.php:343
 msgid "Confidence threshold for marking as spam (0.0 - 1.0)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:203
+#: includes/Admin/Pages/PreviewPage.php:135
+msgid "Configure AI Provider"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:211
 msgid "Configure how comments are processed and thresholds for automatic actions."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:212
+#: includes/Admin/Settings/SettingsManager.php:220
 msgid "Configure logging and data retention settings."
 msgstr ""
 
@@ -190,35 +257,35 @@ msgstr ""
 msgid "Configure your AI provider to start protecting your comments."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:160
+#: includes/Admin/AdminManager.php:171
 msgid "Configure your custom AI provider to automatically analyze comments and keep your site spam-free."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:299
+#: includes/Admin/AdminManager.php:330
 msgid "Connection error: %s"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:234
+#: includes/Admin/AdminManager.php:245
 msgid "Connection failed:"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:290
+#: includes/Admin/AdminManager.php:321
 msgid "Connection successful with AI provider"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:233
+#: includes/Admin/AdminManager.php:244
 msgid "Connection successful!"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:294
+#: includes/Admin/AdminManager.php:325
 msgid "Connection test failed"
 msgstr ""
 
-#: includes/AI/AIManager.php:123
+#: includes/AI/AIManager.php:125
 msgid "Content:"
 msgstr ""
 
-#: includes/AI/AIManager.php:115
+#: includes/AI/AIManager.php:117
 msgid "Criteria:"
 msgstr ""
 
@@ -226,7 +293,7 @@ msgstr ""
 msgid "Customize how the AI analyzes comments by modifying the prompt below."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:221
+#: includes/Admin/Settings/SettingsManager.php:229
 msgid "Customize the prompt sent to the AI for comment analysis."
 msgstr ""
 
@@ -234,25 +301,45 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/AI/AIManager.php:121
+#: includes/Admin/Settings/SettingsManager.php:163
+msgid "Disable Email Notifications"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:381
+msgid "Disable WordPress email notifications for AI-processed comments"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:86
+msgid "Email of the comment author (optional)"
+msgstr ""
+
+#: includes/AI/AIManager.php:123
 msgid "Email:"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:163
-#: includes/Admin/Settings/SettingsManager.php:374
+#: includes/Admin/Settings/SettingsManager.php:171
+#: includes/Admin/Settings/SettingsManager.php:403
 msgid "Enable logging"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:275
+#: includes/Admin/Settings/SettingsManager.php:283
 msgid "Enter new API token..."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:295
+#: includes/Admin/Pages/PreviewPage.php:100
+msgid "Enter the comment text you want to analyze..."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:303
 msgid "Enter your API token for the selected provider. Tokens are encrypted before being stored."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:290
+#: includes/Admin/Settings/SettingsManager.php:298
 msgid "Enter your API token..."
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:217
+msgid "Failed to analyze comment"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:199
@@ -261,6 +348,10 @@ msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:285
 msgid "Final Action"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:147
+msgid "Fine-tune your prompts and thresholds based on test results"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:194
@@ -281,7 +372,11 @@ msgstr ""
 msgid "Invalid response"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:171
+#: includes/Admin/Pages/PreviewPage.php:71
+msgid "John Doe"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:179
 msgid "Log retention (days)"
 msgstr ""
 
@@ -289,12 +384,16 @@ msgstr ""
 msgid "Logging Settings"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:119
+#: includes/Admin/AdminManager.php:127
 msgid "Logs"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:113
 msgid "Logs deleted successfully."
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:72
+msgid "Name of the comment author (optional)"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:256
@@ -305,32 +404,44 @@ msgstr ""
 msgid "No logs available."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:241
+#: includes/Admin/AdminManager.php:252
 msgid "Note: After saving, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:395
+#: includes/Admin/Settings/SettingsManager.php:424
 msgid "Number of days to keep logs. Set to 0 to keep logs indefinitely. Default: 30 days."
 msgstr ""
 
-#: includes/AI/AIManager.php:227
-msgid "OpenAI (GPT-4, GPT-3.5)"
+#: includes/Admin/Pages/PreviewPage.php:149
+msgid "Once you configure your AI provider in the Settings tab, you can use this feature to test and optimize your comment moderation."
 msgstr ""
 
 #: includes/AI/AIManager.php:229
+msgid "OpenAI (GPT-4, GPT-3.5)"
+msgstr ""
+
+#: includes/AI/AIManager.php:231
 msgid "OpenRouter (Multiple models)"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:238
+#: includes/Admin/AdminManager.php:267
+msgid "Pending Review"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:249
 msgid "Please select a provider and enter the API token"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:282
+#: includes/Admin/AdminManager.php:313
 msgid "Please select a provider and provide the token"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:239
+#: includes/Admin/AdminManager.php:250
 msgid "Please test the connection before saving"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:123
+msgid "Preview"
 msgstr ""
 
 #: includes/Admin/Pages/LogsPage.php:281
@@ -341,7 +452,7 @@ msgstr ""
 msgid "Processing Settings"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:115
+#: includes/Admin/AdminManager.php:122
 msgid "Prompt"
 msgstr ""
 
@@ -349,10 +460,11 @@ msgstr ""
 msgid "Prompt Guidelines"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:245
+#: includes/Admin/AdminManager.php:256
 msgid "Provider changed. Please enter your new API token and test the connection."
 msgstr ""
 
+#: includes/Admin/AdminManager.php:265
 #: includes/Admin/Pages/LogsPage.php:191
 #: includes/Admin/Pages/LogsPage.php:369
 msgid "Rejected"
@@ -362,7 +474,7 @@ msgstr ""
 msgid "Request JSON format response for reliable parsing"
 msgstr ""
 
-#: includes/AI/AIManager.php:113
+#: includes/AI/AIManager.php:115
 msgid "Respond ONLY with a valid JSON with the following structure:"
 msgstr ""
 
@@ -378,20 +490,24 @@ msgstr ""
 msgid "Security check failed. Please try again."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:234
+#: includes/Admin/Pages/PreviewPage.php:145
+msgid "See the AI decision (approve, reject, spam, or hold for review)"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:242
 msgid "Select provider..."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:194
+#: includes/Admin/Settings/SettingsManager.php:202
 msgid "Select your AI provider and enter your API credentials."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:241
+#: includes/Admin/Settings/SettingsManager.php:249
 msgid "Select your preferred AI provider"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:114
-#: includes/Admin/AdminManager.php:333
+#: includes/Admin/AdminManager.php:121
+#: includes/Admin/AdminManager.php:364
 msgid "Settings"
 msgstr ""
 
@@ -399,6 +515,11 @@ msgstr ""
 msgid "Setup Required"
 msgstr ""
 
+#: includes/Admin/AdminManager.php:271
+msgid "Show/Hide Complete Prompt"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:266
 #: includes/Admin/Pages/LogsPage.php:188
 #: includes/Admin/Pages/LogsPage.php:368
 msgid "Spam"
@@ -416,21 +537,34 @@ msgstr ""
 msgid "Statistics (Last 30 Days)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:180
+#: includes/Admin/AdminManager.php:263
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:272
+#: includes/Admin/Settings/SettingsManager.php:188
 msgid "System Message"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:414
+#: includes/Admin/Settings/SettingsManager.php:443
 msgid "System message that defines AI behavior. Leave empty to use default."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:235
+#: includes/Admin/AdminManager.php:246
 #: includes/Admin/Pages/SettingsPage.php:151
 msgid "Test AI Connection"
 msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:147
 msgid "Test Connection"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:144
+msgid "Test different types of comments (legitimate, spam, inappropriate)"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:52
+msgid "Test how the AI will analyze comments using your current configuration. This helps you understand the AI behavior before it processes real comments."
 msgstr ""
 
 #: includes/Admin/Pages/SettingsPage.php:169
@@ -445,19 +579,31 @@ msgstr ""
 msgid "Test your prompt with sample comments before deploying"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:232
+#: includes/Admin/AdminManager.php:243
 msgid "Testing connection..."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:240
+#: includes/Admin/Pages/PreviewPage.php:102
+msgid "The comment text that will be analyzed by the AI"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:142
+msgid "The preview feature allows you to test how the AI will analyze comments before they go live on your site. You can:"
+msgstr ""
+
+#: includes/Admin/AdminManager.php:251
 msgid "Thresholds must be between 0.0 and 1.0"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:260
+#: includes/Admin/Pages/PreviewPage.php:132
+msgid "To use the comment analysis preview, you need to configure an AI provider first."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:268
 msgid "Token Saved & Encrypted"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:244
+#: includes/Admin/AdminManager.php:255
 msgid "Token validated. Change provider to modify."
 msgstr ""
 
@@ -465,7 +611,7 @@ msgstr ""
 msgid "Total Processed"
 msgstr ""
 
-#: includes/AI/AIManager.php:122
+#: includes/AI/AIManager.php:124
 msgid "URL:"
 msgstr ""
 
@@ -474,7 +620,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:242
+#: includes/Admin/AdminManager.php:253
 msgid "Unsaved changes: Remember to save your settings."
 msgstr ""
 
@@ -482,11 +628,27 @@ msgstr ""
 msgid "Use clear, specific instructions for the AI"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:376
+#: includes/Admin/AdminManager.php:273
+msgid "User Prompt"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:146
+msgid "View the confidence score and reasoning behind each decision"
+msgstr ""
+
+#: includes/Admin/Pages/PreviewPage.php:141
+msgid "What is Comment Analysis Preview?"
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:383
+msgid "When enabled, WordPress will not send email notifications to post authors when comments are processed by AI. Manual comments will still trigger notifications."
+msgstr ""
+
+#: includes/Admin/Settings/SettingsManager.php:405
 msgid "When enabled, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:407
+#: includes/Admin/Settings/SettingsManager.php:436
 msgid "You are an expert comment moderator. Analyze comments and respond only with valid JSON."
 msgstr ""
 
@@ -498,7 +660,7 @@ msgstr ""
 msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:237
+#: includes/Admin/AdminManager.php:248
 msgid "You have unsaved changes. Are you sure you want to leave?"
 msgstr ""
 
@@ -510,6 +672,10 @@ msgstr ""
 msgid "Your AI provider is configured and ready to analyze comments."
 msgstr ""
 
+#: includes/Admin/Pages/PreviewPage.php:85
+msgid "john@example.com"
+msgstr ""
+
 #: includes/Admin/Pages/SettingsPage.php:175
 msgid "⚠ Connection Required:"
 msgstr ""
@@ -518,7 +684,7 @@ msgstr ""
 msgid "⚠ Warning:"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:243
+#: includes/Admin/AdminManager.php:254
 msgid "🔒 Validated"
 msgstr ""
 

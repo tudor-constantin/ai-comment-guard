@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,12 @@ Currently, you can configure one provider at a time, but you can switch between 
 
 == Changelog ==
 
+= 1.2.2 =
+* New feature: Added option to disable WordPress email notifications for AI-processed comments
+* New feature: Added Preview tab for testing AI comment analysis before deployment
+* Improved UI: Clean preview interface with detailed analysis breakdown
+* Better UX: Test different comment types and see how AI processes them
+
 = 1.2.1 =
 * Performance optimization: Added database indexing for comment_hash column to improve duplicate checking
 * Improved caching: Implemented hybrid caching system with in-memory and database optimizations
@@ -173,13 +179,13 @@ Currently, you can configure one provider at a time, but you can switch between 
 * Code quality: Improved cache management with proper cleanup methods
 
 = 1.2.0 =
-* **Security enhancement**: Added AES-256-CBC encryption for API tokens in database
-* **Improved UI**: Enhanced token field interface with masked display and secure editing
-* **New feature**: API tokens are now encrypted automatically when saved
-* **Better UX**: Token field shows masked version (e.g., sk-12••••••••••••••••ef) instead of full token
-* **Secure interface**: No token exposure in browser inspector or page source
-* **Backward compatibility**: Existing unencrypted tokens work seamlessly and migrate automatically
-* **Visual feedback**: Clear indicators for encrypted token status
+* Security enhancement: Added AES-256-CBC encryption for API tokens in database
+* Improved UI: Enhanced token field interface with masked display and secure editing
+* New feature: API tokens are now encrypted automatically when saved
+* Better UX: Token field shows masked version (e.g., sk-12••••••••••••••••ef) instead of full token
+* Secure interface: No token exposure in browser inspector or page source
+* Backward compatibility: Existing unencrypted tokens work seamlessly and migrate automatically
+* Visual feedback: Clear indicators for encrypted token status
 
 = 1.1.1 =
 * Fixed system message integration in AI prompt

@@ -130,6 +130,9 @@
             // Filter logs
             $(this.config.selectors.filterButton).on('click', this.filterLogs.bind(this));
             
+            // Preview functionality
+            this.initPreviewEvents();
+            
             // Warn before leaving with unsaved changes
             window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
         },
@@ -430,21 +433,6 @@
         },
         
         /**
-         * Utility: Get statistics
-         */
-        getStatistics: function(days = 30) {
-            return $.ajax({
-                url: aicog_ajax.ajaxurl,
-                type: 'GET',
-                data: {
-                    action: 'aicog_get_stats',
-                    nonce: aicog_ajax.nonce,
-                    days: days
-                }
-            });
-        },
-        
-        /**
          * Utility: Delete logs
          */
         deleteLogs: function(days = 0) {
@@ -574,24 +562,169 @@
                 }
                 self.config.state.connectionTested = false;
             });
+        },
+        
+        /**
+         * Initialize preview events
+         */
+        initPreviewEvents: function() {
+            const self = this;
+            
+            // Handle comment analysis form submission
+            $(document).on('submit', '#comment-preview-form', function(e) {
+                e.preventDefault();
+                self.analyzeComment();
+            });
+        },
+        
+        /**
+         * Analyze comment via AJAX
+         */
+        analyzeComment: function() {
+            const self = this;
+            const $form = $('#comment-preview-form');
+            const $button = $('#analyze-comment-btn');
+            const $result = $('#analysis-result');
+            
+            const formData = {
+                action: 'aicog_analyze_comment',
+                nonce: $form.find('input[name="preview_nonce"]').val(),
+                comment_author: $('#test-comment-author').val(),
+                comment_email: $('#test-comment-email').val(),
+                comment_content: $('#test-comment-content').val()
+            };
+            
+            // Show loading state
+            $button.prop('disabled', true)
+                   .html(aicog_ajax.strings.analyzing + ' <span class="ai-comment-guard-loading"></span>');
+            $result.hide();
+            
+            // Make AJAX request
+            $.ajax({
+                url: aicog_ajax.ajaxurl,
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        self.displayAnalysisResult(response.data);
+                    } else {
+                        self.displayAnalysisError(response.data);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    self.displayAnalysisError(aicog_ajax.strings.analysis_error + ' ' + error);
+                },
+                complete: function() {
+                    $button.prop('disabled', false)
+                           .html(aicog_ajax.strings.analyze_button || 'Analyze Comment');
+                }
+            });
+        },
+        
+        /**
+         * Display analysis result
+         */
+        displayAnalysisResult: function(data) {
+            const $result = $('#analysis-result');
+            
+            let statusClass = 'result-' + data.status;
+            let statusText = '';
+            let statusIcon = '';
+            
+            switch (data.status) {
+                case 'approved':
+                    statusText = aicog_ajax.strings.status_approved || 'Approved';
+                    statusIcon = '✓';
+                    break;
+                case 'rejected':
+                    statusText = aicog_ajax.strings.status_rejected || 'Rejected';
+                    statusIcon = '✗';
+                    break;
+                case 'spam':
+                    statusText = aicog_ajax.strings.status_spam || 'Spam';
+                    statusIcon = '✗';
+                    break;
+                case 'pending':
+                    statusText = aicog_ajax.strings.status_pending || 'Pending Review';
+                    statusIcon = '-';
+                    break;
+                default:
+                    statusText = data.status;
+                    statusIcon = '?';
+            }
+            
+            const confidencePercent = Math.round(data.confidence * 100);
+            
+            const resultHtml = `
+                <h3>${aicog_ajax.strings.analysis_results || 'Analysis Results'}</h3>
+                <div class="result-status ${statusClass}">
+                    ${statusIcon} ${aicog_ajax.strings.status_label || 'Status'}: ${statusText}
+                </div>
+                <div class="result-confidence">
+                    <strong>${aicog_ajax.strings.confidence_label || 'Confidence Score'}:</strong> 
+                    ${confidencePercent}% (${data.confidence.toFixed(3)})
+                </div>
+                <div class="result-reasoning">
+                    <strong>${aicog_ajax.strings.reasoning_label || 'AI Reasoning'}:</strong>
+                    <p>${data.reasoning}</p>
+                </div>
+                ${data.prompt_used || data.system_message ? `
+                <div class="result-prompt">
+                    <strong>${aicog_ajax.strings.prompt_label || 'Complete Prompt Used'}:</strong>
+                    <details>
+                        <summary>${aicog_ajax.strings.show_prompt || 'Show/Hide Complete Prompt'}</summary>
+                        <div class="prompt-sections">
+                            ${data.system_message ? `
+                            <div class="system-message-section">
+                                <h4>${aicog_ajax.strings.system_message_label || 'System Message'}:</h4>
+                                <pre>${data.system_message}</pre>
+                            </div>
+                            ` : ''}
+                            ${data.prompt_used ? `
+                            <div class="user-prompt-section">
+                                <h4>${aicog_ajax.strings.user_prompt_label || 'User Prompt'}:</h4>
+                                <pre>${data.prompt_used}</pre>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </details>
+                </div>
+                ` : ''}
+            `;
+            
+            $result.html(resultHtml).show();
+            
+            // Scroll to result
+            $('html, body').animate({
+                scrollTop: $result.offset().top - 100
+            }, 500);
+        },
+        
+        /**
+         * Display analysis error
+         */
+        displayAnalysisError: function(message) {
+            const $result = $('#analysis-result');
+            
+            const errorHtml = `
+                <h3>${aicog_ajax.strings.analysis_error_title || 'Analysis Error'}</h3>
+                <div class="result-status error">
+                    ✗ ${message}
+                </div>
+            `;
+            
+            $result.html(errorHtml).show();
+            
+            // Scroll to result
+            $('html, body').animate({
+                scrollTop: $result.offset().top - 100
+            }, 500);
         }
     };
     
     // Initialize when document is ready
     $(document).ready(function() {
         AICommentGuard.init();
-        
-        // Auto-refresh statistics if on logs page
-        if ($('.ai-comment-guard-stats').length) {
-            setInterval(function() {
-                AICommentGuard.getStatistics().done(function(response) {
-                    if (response.success) {
-                        // Update statistics display
-                        console.log('Statistics updated:', response.data);
-                    }
-                });
-            }, 300000); // Every 5 minutes
-        }
     });
     
 })(jQuery);

@@ -94,7 +94,9 @@ class AIManager {
             
             return array_merge($analysis, [
                 'provider' => $result['provider'],
-                'processing_time' => $result['processing_time']
+                'processing_time' => $result['processing_time'],
+                'prompt_used' => $prompt,
+                'system_message' => $system_message
             ]);
             
         } catch (\Exception $e) {
@@ -117,9 +119,9 @@ class AIManager {
         $prompt .= __("- REJECTED: Offensive comments, inappropriate content, off-topic", 'ai-comment-guard') . "\n";
         $prompt .= __("- APPROVED: Constructive comments, relevant, appropriate", 'ai-comment-guard') . "\n\n";
         $prompt .= __("Comment to analyze:", 'ai-comment-guard') . "\n";
-        $prompt .= __("Author:", 'ai-comment-guard') . " " . $comment_data['comment_author'] . "\n";
-        $prompt .= __("Email:", 'ai-comment-guard') . " " . $comment_data['comment_author_email'] . "\n";
-        $prompt .= __("URL:", 'ai-comment-guard') . " " . $comment_data['comment_author_url'] . "\n";
+        $prompt .= __("Author:", 'ai-comment-guard') . " " . (isset($comment_data['comment_author']) ? $comment_data['comment_author'] : 'Unknown') . "\n";
+        $prompt .= __("Email:", 'ai-comment-guard') . " " . (isset($comment_data['comment_author_email']) ? $comment_data['comment_author_email'] : 'No email provided') . "\n";
+        $prompt .= __("URL:", 'ai-comment-guard') . " " . (isset($comment_data['comment_author_url']) ? $comment_data['comment_author_url'] : 'No URL provided') . "\n";
         $prompt .= __("Content:", 'ai-comment-guard') . " " . $comment_data['comment_content'];
         
         return $prompt;
@@ -169,9 +171,9 @@ class AIManager {
         $reason = isset($analysis['reason']) ? $analysis['reason'] : 'AI analysis completed';
         
         return [
-            'analysis' => $analysis['analysis'],
+            'status' => $analysis['analysis'],
             'confidence' => $confidence,
-            'reason' => $reason
+            'reasoning' => $reason
         ];
     }
     
@@ -186,21 +188,21 @@ class AIManager {
         
         if (strpos($response_lower, 'spam') !== false) {
             return [
-                'analysis' => 'spam',
+                'status' => 'spam',
                 'confidence' => 0.7,
-                'reason' => 'Detected spam keywords in AI response'
+                'reasoning' => 'Detected spam keywords in AI response'
             ];
         } elseif (strpos($response_lower, 'reject') !== false || strpos($response_lower, 'inappropriate') !== false) {
             return [
-                'analysis' => 'rejected',
+                'status' => 'rejected',
                 'confidence' => 0.7,
-                'reason' => 'Detected rejection keywords in AI response'
+                'reasoning' => 'Detected rejection keywords in AI response'
             ];
         } elseif (strpos($response_lower, 'approv') !== false) {
             return [
-                'analysis' => 'approved',
+                'status' => 'approved',
                 'confidence' => 0.7,
-                'reason' => 'Detected approval keywords in AI response'
+                'reasoning' => 'Detected approval keywords in AI response'
             ];
         }
         

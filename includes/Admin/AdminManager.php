@@ -13,6 +13,7 @@ use AICOG\Utils\Config;
 use AICOG\Database\DatabaseManager;
 use AICOG\Admin\Pages\SettingsPage;
 use AICOG\Admin\Pages\LogsPage;
+use AICOG\Admin\Pages\PreviewPage;
 use AICOG\Admin\Settings\SettingsManager;
 
 /**
@@ -48,6 +49,11 @@ class AdminManager {
     private $logs_page;
     
     /**
+     * @var PreviewPage Preview page
+     */
+    private $preview_page;
+    
+    /**
      * Constructor
      *
      * @param Config $config Configuration manager
@@ -71,6 +77,7 @@ class AdminManager {
         // Initialize pages
         $this->settings_page = new SettingsPage($this->config, $this->settings_manager);
         $this->logs_page = new LogsPage($this->database);
+        $this->preview_page = new PreviewPage($this->config);
         
         // Register hooks
         add_action('admin_menu', [$this, 'add_admin_menu']);
@@ -112,7 +119,8 @@ class AdminManager {
         // Available tabs
         $tabs = [
             'settings' => __('Settings', 'ai-comment-guard'),
-            'prompt' => __('Prompt', 'ai-comment-guard')
+            'prompt' => __('Prompt', 'ai-comment-guard'),
+            'preview' => __('Preview', 'ai-comment-guard')
         ];
         
         if ($log_enabled) {
@@ -131,6 +139,9 @@ class AdminManager {
                 switch ($current_tab) {
                     case 'prompt':
                         $this->settings_page->render_prompt_tab();
+                        break;
+                    case 'preview':
+                        $this->preview_page->render();
                         break;
                     case 'logs':
                         if ($log_enabled) {
@@ -242,7 +253,24 @@ class AdminManager {
             'unsaved_changes_notice' => __('Unsaved changes: Remember to save your settings.', 'ai-comment-guard'),
             'token_validated' => __('🔒 Validated', 'ai-comment-guard'),
             'token_validated_tooltip' => __('Token validated. Change provider to modify.', 'ai-comment-guard'),
-            'provider_changed_warning' => __('Provider changed. Please enter your new API token and test the connection.', 'ai-comment-guard')
+            'provider_changed_warning' => __('Provider changed. Please enter your new API token and test the connection.', 'ai-comment-guard'),
+            // Preview strings
+            'analyzing' => __('Analyzing...', 'ai-comment-guard'),
+            'analyze_button' => __('Analyze Comment', 'ai-comment-guard'),
+            'analysis_error' => __('Analysis failed:', 'ai-comment-guard'),
+            'analysis_error_title' => __('Analysis Error', 'ai-comment-guard'),
+            'analysis_results' => __('Analysis Results', 'ai-comment-guard'),
+            'status_label' => __('Status', 'ai-comment-guard'),
+            'status_approved' => __('Approved', 'ai-comment-guard'),
+            'status_rejected' => __('Rejected', 'ai-comment-guard'),
+            'status_spam' => __('Spam', 'ai-comment-guard'),
+            'status_pending' => __('Pending Review', 'ai-comment-guard'),
+            'confidence_label' => __('Confidence Score', 'ai-comment-guard'),
+            'reasoning_label' => __('AI Reasoning', 'ai-comment-guard'),
+            'prompt_label' => __('Complete Prompt Used', 'ai-comment-guard'),
+            'show_prompt' => __('Show/Hide Complete Prompt', 'ai-comment-guard'),
+            'system_message_label' => __('System Message', 'ai-comment-guard'),
+            'user_prompt_label' => __('User Prompt', 'ai-comment-guard')
         ];
     }
     
@@ -260,6 +288,9 @@ class AdminManager {
         
         // Get statistics
         add_action('wp_ajax_aicog_get_stats', [$this, 'handle_get_stats']);
+        
+        // Preview comment analysis
+        add_action('wp_ajax_aicog_analyze_comment', [$this->preview_page, 'handle_analyze_comment']);
     }
     
     /**

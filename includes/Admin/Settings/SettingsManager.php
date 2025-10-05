@@ -159,6 +159,14 @@ class SettingsManager {
         );
         
         add_settings_field(
+            'aicog_disable_email_notifications',
+            esc_html__('Disable Email Notifications', 'ai-comment-guard'),
+            [$this, 'render_disable_email_notifications_field'],
+            'ai-comment-guard',
+            'aicog_processing_section'
+        );
+        
+        add_settings_field(
             'aicog_log_enabled',
             esc_html__('Enable logging', 'ai-comment-guard'),
             [$this, 'render_log_enabled_field'],
@@ -356,6 +364,27 @@ class SettingsManager {
     }
     
     /**
+     * Render disable email notifications field
+     *
+     * @return void
+     */
+    public function render_disable_email_notifications_field() {
+        $value = $this->config->get('disable_email_notifications', false);
+        ?>
+        <!-- Hidden field to ensure value is always sent -->
+        <input type="hidden" name="<?php echo esc_attr($this->option_name); ?>[disable_email_notifications]" value="0" />
+        <label>
+            <input type="checkbox" 
+                   name="<?php echo esc_attr($this->option_name); ?>[disable_email_notifications]" 
+                   value="1" 
+                   <?php checked($value, 1); ?> />
+            <?php esc_html_e('Disable WordPress email notifications for AI-processed comments', 'ai-comment-guard'); ?>
+        </label>
+        <p class="description"><?php esc_html_e('When enabled, WordPress will not send email notifications to post authors when comments are processed by AI. Manual comments will still trigger notifications.', 'ai-comment-guard'); ?></p>
+        <?php
+    }
+    
+    /**
      * Render log enabled field
      *
      * @return void
@@ -460,6 +489,10 @@ class SettingsManager {
                 $sanitized['auto_process'] = filter_var($input['auto_process'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
             }
 
+            if (array_key_exists('disable_email_notifications', $input)) {
+                $sanitized['disable_email_notifications'] = filter_var($input['disable_email_notifications'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
+            }
+
             if (array_key_exists('log_enabled', $input)) {
                 $sanitized['log_enabled'] = filter_var($input['log_enabled'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
             }
@@ -503,6 +536,7 @@ class SettingsManager {
             'auto_process' => true,
             'spam_threshold' => 0.7,
             'approval_threshold' => 0.3,
+            'disable_email_notifications' => false,
             'log_enabled' => false,
             'log_retention_days' => 30,
             'custom_system_message' => ''
