@@ -44,7 +44,6 @@
             this.bindEvents();
             this.initTokenFieldEvents();
             this.storeOriginalValues();
-            this.initializeTooltips();
             this.checkInitialState();
         },
         
@@ -354,10 +353,36 @@
          * Validate threshold values
          */
         validateThreshold: function(e) {
-            const value = parseFloat($(e.target).val());
-            if (value < 0 || value > 1) {
-                alert(aicog_ajax.strings.threshold_error);
-                $(e.target).val(value < 0 ? 0 : 1).focus();
+            const $input = $(e.target);
+            const value = parseFloat($input.val());
+            const $feedback = $input.next('.threshold-feedback');
+            
+            // Remove existing feedback
+            $feedback.remove();
+            
+            if (value < 0 || value > 1 || isNaN(value)) {
+                const correctedValue = isNaN(value) ? 0.5 : (value < 0 ? 0 : 1);
+                $input.val(correctedValue);
+                
+                // Add visual feedback
+                $input.after('<span class="threshold-feedback error" style="color: #dc3232; font-size: 12px; margin-left: 8px;">Value corrected to valid range (0.0-1.0)</span>');
+                
+                // Remove feedback after 3 seconds
+                setTimeout(() => {
+                    $input.next('.threshold-feedback').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }, 3000);
+            } else {
+                // Add success feedback for valid values
+                $input.after('<span class="threshold-feedback success" style="color: #00a32a; font-size: 12px; margin-left: 8px;">✓ Valid</span>');
+                
+                // Remove success feedback after 2 seconds
+                setTimeout(() => {
+                    $input.next('.threshold-feedback.success').fadeOut(300, function() {
+                        $(this).remove();
+                    });
+                }, 2000);
             }
         },
         
@@ -417,38 +442,6 @@
             $('html, body').animate({
                 scrollTop: $(selector).offset().top - 100
             }, 500);
-        },
-        
-        /**
-         * Initialize tooltips
-         */
-        initializeTooltips: function() {
-            $('.ai-comment-guard-tooltip')
-                .on('mouseenter', function() {
-                    $(this).find('.tooltiptext').fadeIn(200);
-                })
-                .on('mouseleave', function() {
-                    $(this).find('.tooltiptext').fadeOut(200);
-                });
-        },
-        
-        /**
-         * Utility: Delete logs
-         */
-        deleteLogs: function(days = 0) {
-            if (!confirm(aicog_ajax.strings.confirm_delete_logs)) {
-                return false;
-            }
-            
-            return $.ajax({
-                url: aicog_ajax.ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'aicog_delete_logs',
-                    nonce: aicog_ajax.nonce,
-                    days: days
-                }
-            });
         },
         
         /**

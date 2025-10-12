@@ -156,8 +156,7 @@ abstract class AbstractProvider {
      */
     protected function get_headers() {
         return array_merge([
-            'Content-Type' => 'application/json',
-            'User-Agent' => 'AI-Comment-Guard/2.0'
+            'Content-Type' => 'application/json'
         ], $this->headers);
     }
     
@@ -192,13 +191,4 @@ abstract class AbstractProvider {
         return $this->name;
     }
     
-    /**
-     * Set model
-     *
-     * @param string $model Model name
-     * @return void
-     */
-    public function set_model($model) {
-        $this->model = $model;
-    }
 }

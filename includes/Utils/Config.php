@@ -14,7 +14,7 @@ namespace AICOG\Utils;
  *
  * @since 1.0.0
  */
-class Config {
+class Config implements ConfigInterface {
     
     /**
      * @var array Default settings
@@ -262,8 +262,26 @@ class Config {
         }
         
         $key = $this->get_encryption_key();
-        $iv = openssl_random_pseudo_bytes(16);
+        
+        // Use WordPress crypto random for compatibility
+        if (function_exists('wp_generate_password')) {
+            $iv = substr(wp_generate_password(32, true, true), 0, 16);
+        } elseif (function_exists('random_bytes')) {
+            // PHP 7+ secure random
+            $iv = \random_bytes(16);
+        } else {
+            // Last resort fallback for older PHP versions
+            $iv = openssl_random_pseudo_bytes(16);
+            if ($iv === false) {
+                throw new \Exception('Unable to generate secure random bytes for encryption');
+            }
+        }
+        
         $encrypted = openssl_encrypt($data, 'AES-256-CBC', $key, 0, $iv);
+        
+        if ($encrypted === false) {
+            throw new \Exception('Encryption failed');
+        }
         
         // Combine IV and encrypted data, then base64 encode
         return base64_encode($iv . $encrypted);
@@ -361,12 +379,4 @@ class Config {
         $this->settings = null; // Force reload from database
     }
     
-    /**
-     * Warm up the cache by loading settings
-     *
-     * @return void
-     */
-    public function warm_cache() {
-        $this->load_settings();
-    }
 }

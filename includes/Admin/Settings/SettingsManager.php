@@ -62,8 +62,7 @@ class SettingsManager {
             $this->settings_group,
             $this->option_name,
             [
-                'sanitize_callback' => [$this, 'sanitize_settings'],
-                'default' => $this->get_defaults()
+                'sanitize_callback' => [$this, 'sanitize_settings']
             ]
         );
         
@@ -470,43 +469,17 @@ class SettingsManager {
         } else {
             // This is from the main settings tab - process all fields
             
-            // Sanitize provider
-            if (isset($input['ai_provider'])) {
-                $sanitized['ai_provider'] = sanitize_text_field($input['ai_provider']);
-            }
-            
-            // Sanitize token - only update if a new token is provided
-            if (isset($input['ai_provider_token']) && !empty($input['ai_provider_token'])) {
-                $sanitized['ai_provider_token'] = sanitize_text_field($input['ai_provider_token']);
-            } elseif (isset($input['ai_provider_token']) && empty($input['ai_provider_token']) && !empty($current['ai_provider_token'])) {
-                // Empty token submitted but we have an existing token - keep the existing one
-                // This happens when the form is submitted without changing the token
-                unset($input['ai_provider_token']); // Don't process empty token
-            }
-            
-            // Sanitize other fields
-            if (array_key_exists('auto_process', $input)) {
-                $sanitized['auto_process'] = filter_var($input['auto_process'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
-            }
-
-            if (array_key_exists('disable_email_notifications', $input)) {
-                $sanitized['disable_email_notifications'] = filter_var($input['disable_email_notifications'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
-            }
-
-            if (array_key_exists('log_enabled', $input)) {
-                $sanitized['log_enabled'] = filter_var($input['log_enabled'], FILTER_VALIDATE_BOOLEAN) ? 1 : 0;
-            }
-            
-            if (isset($input['spam_threshold'])) {
-                $sanitized['spam_threshold'] = max(0, min(1, floatval($input['spam_threshold'])));
-            }
-            
-            if (isset($input['approval_threshold'])) {
-                $sanitized['approval_threshold'] = max(0, min(1, floatval($input['approval_threshold'])));
-            }
-            
-            if (isset($input['log_retention_days'])) {
-                $sanitized['log_retention_days'] = max(0, min(365, intval($input['log_retention_days'])));
+            // Use SecurityHelper for consistent sanitization
+            foreach ($input as $key => $value) {
+                // Special handling for empty token with existing token
+                if ($key === 'ai_provider_token' && empty($value) && !empty($current['ai_provider_token'])) {
+                    continue; // Keep existing token
+                }
+                
+                $sanitized_value = \AICOG\Utils\SecurityHelper::sanitize_config_value($key, $value);
+                if ($sanitized_value !== false) {
+                    $sanitized[$key] = $sanitized_value;
+                }
             }
         }
         
@@ -524,22 +497,4 @@ class SettingsManager {
         return array_merge($current, $sanitized);
     }
     
-    /**
-     * Get default settings
-     *
-     * @return array
-     */
-    private function get_defaults() {
-        return [
-            'ai_provider' => '',
-            'ai_provider_token' => '',
-            'auto_process' => true,
-            'spam_threshold' => 0.7,
-            'approval_threshold' => 0.3,
-            'disable_email_notifications' => false,
-            'log_enabled' => false,
-            'log_retention_days' => 30,
-            'custom_system_message' => ''
-        ];
-    }
 }

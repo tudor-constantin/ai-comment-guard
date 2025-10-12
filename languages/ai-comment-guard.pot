@@ -1,12 +1,12 @@
 # AI Comment Guard
 # Copyright (C) 2025 Tudor Constantin
 # This file is distributed under the same license as the AI Comment Guard package.
-# POT-Creation-Date: 2025-10-05 20:46+0000
+# POT-Creation-Date: 2025-10-12 12:58+0000
 msgid ""
 msgstr ""
-"Project-Id-Version: AI Comment Guard 1.2.2\n"
+"Project-Id-Version: AI Comment Guard 1.2.3\n"
 "Report-Msgid-Bugs-To: https://www.linkedin.com/in/tudor-eusebiu-constantin/\n"
-"POT-Creation-Date: 2025-10-05 20:46+0000\n"
+"POT-Creation-Date: 2025-10-12 12:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Tudor Constantin <tudoreusebiu4@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,15 +38,15 @@ msgstr[1] ""
 msgid "&laquo; Previous"
 msgstr ""
 
-#: includes/AI/AIManager.php:120
+#: includes/AI/AIManager.php:98
 msgid "- APPROVED: Constructive comments, relevant, appropriate"
 msgstr ""
 
-#: includes/AI/AIManager.php:119
+#: includes/AI/AIManager.php:97
 msgid "- REJECTED: Offensive comments, inappropriate content, off-topic"
 msgstr ""
 
-#: includes/AI/AIManager.php:118
+#: includes/AI/AIManager.php:96
 msgid "- SPAM: Promotional comments, suspicious links, nonsensical text, repetitive content"
 msgstr ""
 
@@ -63,15 +63,15 @@ msgstr ""
 msgid "AI Comment Guard Settings"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:107
+#: includes/Admin/Settings/SettingsManager.php:106
 msgid "AI Prompt Customization"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:122
+#: includes/Admin/Settings/SettingsManager.php:121
 msgid "AI Provider"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:83
+#: includes/Admin/Settings/SettingsManager.php:82
 msgid "AI Provider Configuration"
 msgstr ""
 
@@ -95,7 +95,7 @@ msgstr ""
 msgid "AI-Powered Comment Management"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:130
+#: includes/Admin/Settings/SettingsManager.php:129
 msgid "API Token"
 msgstr ""
 
@@ -128,7 +128,7 @@ msgstr ""
 msgid "Analyze Comment"
 msgstr ""
 
-#: includes/AI/AIManager.php:114
+#: includes/AI/AIManager.php:92
 msgid "Analyze the following comment and determine if it should be approved, rejected, or marked as spam."
 msgstr ""
 
@@ -136,11 +136,11 @@ msgstr ""
 msgid "Analyzing..."
 msgstr ""
 
-#: includes/AI/AIManager.php:230
+#: includes/AI/AIManager.php:208
 msgid "Anthropic (Claude)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:155
+#: includes/Admin/Settings/SettingsManager.php:154
 msgid "Approval Threshold"
 msgstr ""
 
@@ -171,15 +171,15 @@ msgstr ""
 msgid "Author Name"
 msgstr ""
 
-#: includes/AI/AIManager.php:122
+#: includes/AI/AIManager.php:100
 msgid "Author:"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:139
+#: includes/Admin/Settings/SettingsManager.php:138
 msgid "Auto Process Comments"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:323
+#: includes/Admin/Settings/SettingsManager.php:322
 msgid "Automatically process new comments with AI analysis"
 msgstr ""
 
@@ -191,11 +191,11 @@ msgstr ""
 msgid "Avg: %s%%"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:286
+#: includes/Admin/Settings/SettingsManager.php:285
 msgid "Cancel"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:273
+#: includes/Admin/Settings/SettingsManager.php:272
 msgid "Change Token"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Comment content is required"
 msgstr ""
 
-#: includes/AI/AIManager.php:121
+#: includes/AI/AIManager.php:99
 msgid "Comment to analyze:"
 msgstr ""
 
@@ -233,11 +233,11 @@ msgstr ""
 msgid "Confidence Score"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:362
+#: includes/Admin/Settings/SettingsManager.php:361
 msgid "Confidence threshold for automatic approval (0.0 - 1.0)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:343
+#: includes/Admin/Settings/SettingsManager.php:342
 msgid "Confidence threshold for marking as spam (0.0 - 1.0)"
 msgstr ""
 
@@ -245,11 +245,11 @@ msgstr ""
 msgid "Configure AI Provider"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:211
+#: includes/Admin/Settings/SettingsManager.php:210
 msgid "Configure how comments are processed and thresholds for automatic actions."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:220
+#: includes/Admin/Settings/SettingsManager.php:219
 msgid "Configure logging and data retention settings."
 msgstr ""
 
@@ -261,7 +261,7 @@ msgstr ""
 msgid "Configure your custom AI provider to automatically analyze comments and keep your site spam-free."
 msgstr ""
 
-#: includes/Admin/AdminManager.php:330
+#: includes/Admin/AdminManager.php:329
 msgid "Connection error: %s"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 msgid "Connection failed:"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:321
+#: includes/Admin/AdminManager.php:320
 msgid "Connection successful with AI provider"
 msgstr ""
 
@@ -277,15 +277,15 @@ msgstr ""
 msgid "Connection successful!"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:325
+#: includes/Admin/AdminManager.php:324
 msgid "Connection test failed"
 msgstr ""
 
-#: includes/AI/AIManager.php:125
+#: includes/AI/AIManager.php:103
 msgid "Content:"
 msgstr ""
 
-#: includes/AI/AIManager.php:117
+#: includes/AI/AIManager.php:95
 msgid "Criteria:"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Customize how the AI analyzes comments by modifying the prompt below."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:229
+#: includes/Admin/Settings/SettingsManager.php:228
 msgid "Customize the prompt sent to the AI for comment analysis."
 msgstr ""
 
@@ -301,11 +301,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:163
+#: includes/Admin/Settings/SettingsManager.php:162
 msgid "Disable Email Notifications"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:381
+#: includes/Admin/Settings/SettingsManager.php:380
 msgid "Disable WordPress email notifications for AI-processed comments"
 msgstr ""
 
@@ -313,16 +313,16 @@ msgstr ""
 msgid "Email of the comment author (optional)"
 msgstr ""
 
-#: includes/AI/AIManager.php:123
+#: includes/AI/AIManager.php:101
 msgid "Email:"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:171
-#: includes/Admin/Settings/SettingsManager.php:403
+#: includes/Admin/Settings/SettingsManager.php:170
+#: includes/Admin/Settings/SettingsManager.php:402
 msgid "Enable logging"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:283
+#: includes/Admin/Settings/SettingsManager.php:282
 msgid "Enter new API token..."
 msgstr ""
 
@@ -330,11 +330,11 @@ msgstr ""
 msgid "Enter the comment text you want to analyze..."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:303
+#: includes/Admin/Settings/SettingsManager.php:302
 msgid "Enter your API token for the selected provider. Tokens are encrypted before being stored."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:298
+#: includes/Admin/Settings/SettingsManager.php:297
 msgid "Enter your API token..."
 msgstr ""
 
@@ -376,11 +376,11 @@ msgstr ""
 msgid "John Doe"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:179
+#: includes/Admin/Settings/SettingsManager.php:178
 msgid "Log retention (days)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:99
+#: includes/Admin/Settings/SettingsManager.php:98
 msgid "Logging Settings"
 msgstr ""
 
@@ -408,7 +408,7 @@ msgstr ""
 msgid "Note: After saving, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:424
+#: includes/Admin/Settings/SettingsManager.php:423
 msgid "Number of days to keep logs. Set to 0 to keep logs indefinitely. Default: 30 days."
 msgstr ""
 
@@ -416,11 +416,11 @@ msgstr ""
 msgid "Once you configure your AI provider in the Settings tab, you can use this feature to test and optimize your comment moderation."
 msgstr ""
 
-#: includes/AI/AIManager.php:229
+#: includes/AI/AIManager.php:207
 msgid "OpenAI (GPT-4, GPT-3.5)"
 msgstr ""
 
-#: includes/AI/AIManager.php:231
+#: includes/AI/AIManager.php:209
 msgid "OpenRouter (Multiple models)"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 msgid "Please select a provider and enter the API token"
 msgstr ""
 
-#: includes/Admin/AdminManager.php:313
+#: includes/Admin/AdminManager.php:312
 msgid "Please select a provider and provide the token"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 msgid "Processing Date"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:91
+#: includes/Admin/Settings/SettingsManager.php:90
 msgid "Processing Settings"
 msgstr ""
 
@@ -474,7 +474,7 @@ msgstr ""
 msgid "Request JSON format response for reliable parsing"
 msgstr ""
 
-#: includes/AI/AIManager.php:115
+#: includes/AI/AIManager.php:93
 msgid "Respond ONLY with a valid JSON with the following structure:"
 msgstr ""
 
@@ -494,20 +494,20 @@ msgstr ""
 msgid "See the AI decision (approve, reject, spam, or hold for review)"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:242
+#: includes/Admin/Settings/SettingsManager.php:241
 msgid "Select provider..."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:202
+#: includes/Admin/Settings/SettingsManager.php:201
 msgid "Select your AI provider and enter your API credentials."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:249
+#: includes/Admin/Settings/SettingsManager.php:248
 msgid "Select your preferred AI provider"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:121
-#: includes/Admin/AdminManager.php:364
+#: includes/Admin/AdminManager.php:345
 msgid "Settings"
 msgstr ""
 
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Spam"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:147
+#: includes/Admin/Settings/SettingsManager.php:146
 msgid "Spam Threshold"
 msgstr ""
 
@@ -542,11 +542,11 @@ msgid "Status"
 msgstr ""
 
 #: includes/Admin/AdminManager.php:272
-#: includes/Admin/Settings/SettingsManager.php:188
+#: includes/Admin/Settings/SettingsManager.php:187
 msgid "System Message"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:443
+#: includes/Admin/Settings/SettingsManager.php:442
 msgid "System message that defines AI behavior. Leave empty to use default."
 msgstr ""
 
@@ -599,7 +599,7 @@ msgstr ""
 msgid "To use the comment analysis preview, you need to configure an AI provider first."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:268
+#: includes/Admin/Settings/SettingsManager.php:267
 msgid "Token Saved & Encrypted"
 msgstr ""
 
@@ -611,7 +611,7 @@ msgstr ""
 msgid "Total Processed"
 msgstr ""
 
-#: includes/AI/AIManager.php:124
+#: includes/AI/AIManager.php:102
 msgid "URL:"
 msgstr ""
 
@@ -640,15 +640,15 @@ msgstr ""
 msgid "What is Comment Analysis Preview?"
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:383
+#: includes/Admin/Settings/SettingsManager.php:382
 msgid "When enabled, WordPress will not send email notifications to post authors when comments are processed by AI. Manual comments will still trigger notifications."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:405
+#: includes/Admin/Settings/SettingsManager.php:404
 msgid "When enabled, a \"Logs\" tab will appear on this page."
 msgstr ""
 
-#: includes/Admin/Settings/SettingsManager.php:436
+#: includes/Admin/Settings/SettingsManager.php:435
 msgid "You are an expert comment moderator. Analyze comments and respond only with valid JSON."
 msgstr ""
 

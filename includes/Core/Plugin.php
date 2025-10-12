@@ -106,8 +106,7 @@ class Plugin {
      */
     private function register_hooks() {
         // Activation/deactivation hooks are now registered in main plugin file
-        // Only register uninstall hook here
-        register_uninstall_hook(AICOG_PLUGIN_FILE, [__CLASS__, 'uninstall']);
+        // Uninstall is handled by uninstall.php
     }
     
     /**
@@ -165,39 +164,4 @@ class Plugin {
         $this->database->clean_old_logs();
     }
     
-    /**
-     * Plugin uninstall
-     *
-     * @return void
-     */
-    public static function uninstall() {
-        $database = new DatabaseManager();
-        $database->drop_tables();
-        
-        // Delete options
-        delete_option('aicog_settings');
-        delete_option('aicog_version');
-        
-        // Delete transients
-        delete_transient('aicog_connection_tested');
-        delete_transient('aicog_config_cache');
-    }
-    
-    /**
-     * Get config manager
-     *
-     * @return Config
-     */
-    public function get_config() {
-        return $this->config;
-    }
-    
-    /**
-     * Get database manager
-     *
-     * @return DatabaseManager
-     */
-    public function get_database() {
-        return $this->database;
-    }
 }

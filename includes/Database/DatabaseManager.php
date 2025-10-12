@@ -198,17 +198,28 @@ class DatabaseManager {
             $total = $this->wpdb->get_var($count_sql);
         }
         
-        // Get logs
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $query = "SELECT l.*, 
-                  COALESCE(c.comment_content, l.comment_content) as comment_content,
-                  COALESCE(c.comment_author, l.comment_author) as comment_author,
-                  COALESCE(c.comment_date, l.created_at) as comment_date
-                  FROM " . $this->log_table . " l 
-                  LEFT JOIN " . $this->wpdb->comments . " c ON l.comment_id = c.comment_ID 
-                  " . $where_clause . "
-                  ORDER BY " . $orderby . " " . $order . "
-                  LIMIT %d OFFSET %d";
+        // Optimize query - only join with comments table if we need live comment data
+        $needs_comment_data = in_array($orderby, ['comment_content', 'comment_author'], true);
+        
+        if ($needs_comment_data) {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $query = "SELECT l.*, 
+                      COALESCE(c.comment_content, l.comment_content) as comment_content,
+                      COALESCE(c.comment_author, l.comment_author) as comment_author,
+                      COALESCE(c.comment_date, l.created_at) as comment_date
+                      FROM " . $this->log_table . " l 
+                      LEFT JOIN " . $this->wpdb->comments . " c ON l.comment_id = c.comment_ID 
+                      " . $where_clause . "
+                      ORDER BY " . $orderby . " " . $order . "
+                      LIMIT %d OFFSET %d";
+        } else {
+            // Simpler query without join when not needed
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $query = "SELECT * FROM " . $this->log_table . " 
+                      " . $where_clause . "
+                      ORDER BY " . $orderby . " " . $order . "
+                      LIMIT %d OFFSET %d";
+        }
         
         $query_values = array_merge($where_values, [$args['per_page'], $offset]);
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -339,23 +350,25 @@ class DatabaseManager {
     }
     
     /**
+     * @var array Static cache for log existence checks (limited size)
+     */
+    private static $log_cache = [];
+    
+    /**
+     * @var int Maximum cache size to prevent memory issues
+     */
+    private static $max_cache_size = 1000;
+    
+    /**
      * Check if log exists for comment
      *
      * @param string $comment_hash Comment hash
      * @return bool
      */
     public function log_exists($comment_hash) {
-        static $cache = [];
-        
-        // Handle cache reset
-        if ($comment_hash === '__RESET_CACHE__') {
-            $cache = [];
-            return false;
-        }
-        
         // Check in-memory cache first
-        if (isset($cache[$comment_hash])) {
-            return $cache[$comment_hash];
+        if (isset(self::$log_cache[$comment_hash])) {
+            return self::$log_cache[$comment_hash];
         }
         
         // Check database using optimized query with indexed hash column
@@ -365,10 +378,15 @@ class DatabaseManager {
         // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $exists = (int) $this->wpdb->get_var($prepared_exists);
         
-        // Cache the result (both positive and negative)
-        $cache[$comment_hash] = $exists > 0;
+        // Cache the result with size limit
+        if (count(self::$log_cache) >= self::$max_cache_size) {
+            // Remove oldest entries (FIFO)
+            self::$log_cache = array_slice(self::$log_cache, -500, null, true);
+        }
         
-        return $cache[$comment_hash];
+        self::$log_cache[$comment_hash] = $exists > 0;
+        
+        return self::$log_cache[$comment_hash];
     }
     
     /**
@@ -377,23 +395,6 @@ class DatabaseManager {
      * @return void
      */
     public function clear_log_cache() {
-        // Reset the static cache array in log_exists method
-        $this->reset_log_cache();
-    }
-    
-    /**
-     * Reset the static cache array
-     *
-     * @return void
-     */
-    private function reset_log_cache() {
-        // Call log_exists with a special flag to reset cache
-        static $reset_cache = false;
-        $reset_cache = true;
-        
-        // This will trigger the cache reset in log_exists
-        $this->log_exists('__RESET_CACHE__');
-        
-        $reset_cache = false;
+        self::$log_cache = [];
     }
 }

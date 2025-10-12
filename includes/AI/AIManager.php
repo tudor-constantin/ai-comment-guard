@@ -52,28 +52,6 @@ class AIManager {
     }
     
     /**
-     * Create provider instance
-     *
-     * @param string $provider_name Provider name
-     * @param string $token API token
-     * @return AbstractProvider
-     * @throws \Exception
-     */
-    public static function create($provider_name, $token) {
-        $manager = new self($provider_name, $token);
-        return $manager->get_provider();
-    }
-    
-    /**
-     * Get provider instance
-     *
-     * @return AbstractProvider
-     */
-    public function get_provider() {
-        return $this->provider;
-    }
-    
-    /**
      * Analyze comment using AI
      *
      * @param array $comment_data Comment data

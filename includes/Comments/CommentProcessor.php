@@ -102,8 +102,8 @@ class CommentProcessor {
                 return $this->map_action_to_status($action);
             }
         } catch (\Exception $e) {
-            // Error logging removed for production compliance
-            // WordPress.org plugins should not use error_log() in production
+            // Store error in transient for admin notification (no error_log for production)
+            set_transient('aicog_last_error', $e->getMessage(), 300);
         }
         
         return $approved;

@@ -286,9 +286,6 @@ class AdminManager {
         // Delete logs
         add_action('wp_ajax_aicog_delete_logs', [$this->logs_page, 'handle_delete_logs']);
         
-        // Get statistics
-        add_action('wp_ajax_aicog_get_stats', [$this, 'handle_get_stats']);
-        
         // Preview comment analysis
         add_action('wp_ajax_aicog_analyze_comment', [$this->preview_page, 'handle_analyze_comment']);
     }
@@ -300,12 +297,14 @@ class AdminManager {
      * @return void
      */
     public function handle_test_connection() {
+        // Validate nonce and capability first
         check_ajax_referer('aicog_nonce', 'nonce');
         
         if (!current_user_can('manage_options')) {
-            wp_die('Unauthorized');
+            wp_die('Unauthorized', 403);
         }
         
+        // Now safe to access $_POST
         $provider = isset($_POST['ai_provider']) ? sanitize_text_field(wp_unslash($_POST['ai_provider'])) : '';
         $token = isset($_POST['ai_provider_token']) ? sanitize_text_field(wp_unslash($_POST['ai_provider_token'])) : '';
         
@@ -331,24 +330,6 @@ class AdminManager {
                 $e->getMessage()
             ));
         }
-    }
-
-    /**
-     * Handle get statistics AJAX request
-     *
-     * @return void
-     */
-    public function handle_get_stats() {
-        check_ajax_referer('aicog_nonce', 'nonce');
-        
-        if (!current_user_can('manage_options')) {
-            wp_die('Unauthorized');
-        }
-        
-        $days = isset($_GET['days']) ? intval($_GET['days']) : 30;
-        $stats = $this->database->get_statistics($days);
-        
-        wp_send_json_success($stats);
     }
     
     /**

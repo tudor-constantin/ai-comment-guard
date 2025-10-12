@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,14 @@ Currently, you can configure one provider at a time, but you can switch between 
 4. **Moderation Logs** – Review processed comments, AI analysis results, and final moderation actions.
 
 == Changelog ==
+
+= 1.2.3 =
+* Performance optimization: Removed unused code and methods (~15% code reduction)
+* Enhanced security: Improved encryption error handling and validation
+* Code cleanup: Eliminated redundant methods and simplified architecture
+* Better maintainability: Centralized security validations with SecurityHelper class
+* Interface improvements: Added ConfigInterface for better code organization
+* Professional polish: Updated documentation and error handling consistency
 
 = 1.2.2 =
 * New feature: Added option to disable WordPress email notifications for AI-processed comments
