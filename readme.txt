@@ -3,8 +3,8 @@ Contributors: tud0r
 Donate link: https://www.linkedin.com/in/tudor-eusebiu-constantin/
 Tags: comments, spam, moderation, ai, artificial intelligence
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.2.3
+Tested up to: 6.9
+Stable tag: 1.2.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,6 +163,10 @@ Currently, you can configure one provider at a time, but you can switch between 
 4. **Moderation Logs** – Review processed comments, AI analysis results, and final moderation actions.
 
 == Changelog ==
+
+= 1.2.4 =
+* Compatibility update: Tested and verified compatibility with WordPress 6.9
+* Updated "Tested up to" version to 6.9
 
 = 1.2.3 =
 * Performance optimization: Removed unused code and methods (~15% code reduction)
